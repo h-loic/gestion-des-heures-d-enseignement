@@ -42,8 +42,7 @@ router.post('/enseignant/:id?', (req, res) => {
         enseignant.prenom = req.body.prenom;
         enseignant.surnom = req.body.surnom;
         enseignant.email = req.body.email;
-        enseignant.statuts = req.body.statuts;
-
+        enseignant.statut = req.body.statut;
         return enseignant.save();
     }).then(() => {
         res.redirect('/enseignant');

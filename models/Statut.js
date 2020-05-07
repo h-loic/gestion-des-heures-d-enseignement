@@ -12,7 +12,7 @@ var statutSchema = new mongoose.Schema({
 statutSchema.virtual('enseignants',{
     ref: 'Enseignant',
     localField: '_id',
-    foreignField: 'statuts'
+    foreignField: 'statut'
 });
 
 var Statut = mongoose.model('Statut',statutSchema);

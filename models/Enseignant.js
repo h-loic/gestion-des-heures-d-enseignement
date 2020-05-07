@@ -5,12 +5,11 @@ var enseignantSchema = new mongoose.Schema({
     prenom : String,
     surnom : String,
     email : String,
-    statuts : [
+    statut :
         {
             type: mongoose.Schema.Types.ObjectId,
             ref : 'Statut'
         }
-    ]
 });
 
 var Enseignant = mongoose.model('Enseignant',enseignantSchema);
