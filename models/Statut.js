@@ -3,8 +3,10 @@ var mongoose = require('mongoose');
 var statutSchema = new mongoose.Schema({
     nom : String,
     surnom: String,
-    heure_a_faire : [],
-    heure_supp : []
+    heure_normal_min : Number,
+    heure_normal_max : Number,
+    heure_supp_min : Number,
+    heure_supp_max : Number,
 })
 
 statutSchema.virtual('enseignants',{

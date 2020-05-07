@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/">Accueil</a>
+    <a class="breadcrumb-item" href="/enseignant">Enseignant</a>
+    <a class="breadcrumb-item" href="/enseignant/statut">Statut</a>
+    <span class="breadcrumb-item active">ajouter-modifier</span>
+</nav>
+<div class="container">
+    <form method="post" action="{{ endpoint }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" class="form-control" value="{{ statut.nom }}">
+        </div>
+        <div class="form-group">
+            <label for="surnom">Surnom</label>
+            <input type="text" id="surnom" name="surnom" class="form-control" value="{{ statut.surnom }}">
+        </div>
+        <div class="form-group">
+            <label for="heure_normal_min">nombre d'heure normal minimal</label>
+            <input type="text" id="heure_normal_min" name="heure_normal_min" class="form-control" value="{{ statut.heure_normal_min }}">
+        </div>
+        <div class="form-group">
+            <label for="heure_normal_max">nombre d'heure normal maximal</label>
+            <input type="text" id="heure_normal_max" name="heure_normal_max" class="form-control" value="{{ statut.heure_normal_max }}">
+        </div>
+        <div class="form-group">
+            <label for="heure_supp_min">nombre d'heure sup. minimal</label>
+            <input type="text" id="heure_supp_min" name="heure_supp_min" class="form-control" value="{{ statut.heure_supp_min }}">
+        </div>
+        <div class="form-group">
+            <label for="heure_supp_max">nombre d'heure sup. maximal</label>
+            <input type="text" id="heure_supp_max" name="heure_supp_max" class="form-control" value="{{ statut.heure_supp_max }}">
+        </div>
+        <input type="submit" class="btn btn-primary" value="enregistrer">
+    </form>
+</div>
+
+{% endblock %}

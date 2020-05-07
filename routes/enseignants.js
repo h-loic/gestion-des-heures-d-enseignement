@@ -19,7 +19,7 @@ router.get('/enseignant/edit/:id', (req,res) => {
 
 router.get('/enseignant/delete/:id', (req, res) => {
     Enseignant.findOneAndRemove({ _id : req.params.id}).then(() => {
-        res.redirect('/');
+        res.redirect('/enseignant');
     });
 });
 
