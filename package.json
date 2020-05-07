@@ -1,0 +1,28 @@
+{
+  "name": "gestion-des-heures-d-enseignement",
+  "version": "1.0.0",
+  "description": "application web réalisé avec la MEAN-stack (Mongodb,ExpressJs,AngularJs,NodeJs)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h-loic/gestion-des-heures-d-enseignement.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/h-loic/gestion-des-heures-d-enseignement/issues"
+  },
+  "homepage": "https://github.com/h-loic/gestion-des-heures-d-enseignement#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.12",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.3",
+    "nunjucks": "^3.2.1"
+  }
+}

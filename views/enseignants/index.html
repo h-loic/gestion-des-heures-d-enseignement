@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    {% for ens in enseignants %}
+        <nav class="breadcrumb">
+            <a class="breadcrumb-item" href="/">Accueil</a>
+            <span class="breadcrumb-item active">Enseignant</span>
+        </nav>
+        <div class="container">
+            <div class="row justify-content-center mt-4 mb-4">
+                <a href="/statut" type="button" class="btn btn-outline-info col-md-5 m-1 align-content-center">gestion des statuts</a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ ens.nom}}
+                </div>
+                <div class="panel-content">
+                    {{ ens.statut}}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
