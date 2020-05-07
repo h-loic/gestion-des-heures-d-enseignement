@@ -37,4 +37,3 @@ nunjucks.configure('views',{
 
 console.log('application lancé sur le port 3000');
 app.listen(3000);
-

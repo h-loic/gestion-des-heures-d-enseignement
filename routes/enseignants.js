@@ -2,30 +2,24 @@ var router = require('express').Router();
 var Enseignant = require('./../models/Enseignant');
 var Statut = require('./../models/Statut');
 
-router.get('/enseignant', (req, res) => {
-    Enseignant.find({}).populate('statut').then(enseignants => {
-        res.render('enseignants/index.html', { enseignants : enseignants});
-    });
-});
-
-router.get('enseignant/new', (req,res) => {
+router.get('/enseignant/new', (req,res) => {
     Statut.find({}).then(statuts =>{
         var enseignant = new Enseignant();
-        res.render('enseignants/edit.html', { enseignant : enseignant, statuts : statuts});
+        res.render('enseignants/edit.html', { enseignant : enseignant, statuts : statuts, endpoint: '/enseignant'});
     });
 });
 
-router.get('enseignant/edit/:id', (req,res) => {
+router.get('/enseignant/edit/:id', (req,res) => {
     Statut.find({}).then(statuts =>{
         Enseignant.findById(req.params.id).then(enseignant => {
-            res.render('enseignants/edit.html', { enseignant : enseignant, statuts : statuts});
+            res.render('enseignants/edit.html', { enseignant : enseignant, statuts : statuts, endpoint: '/enseignant/' + enseignant._id.toString()});
         });
     });
 });
 
-router.post('enseignant/:id?', (req, res) => {
+router.post('/enseignant/:id?', (req, res) => {
     new Promise((resolve, reject) =>{
-        if (req.params.id.match(/^[0-9a-fA-F]{24}$/)){
+        if (req.params.id){
             Enseignant.findById(req.params.id).then(resolve,reject);
         }
         else{
@@ -40,8 +34,15 @@ router.post('enseignant/:id?', (req, res) => {
 
         return enseignant.save();
     }).then(() => {
-        res.redirect('/');
+        res.redirect('/enseignant');
     }, err => console.log(err));
 });
+
+router.get('/enseignant', (req, res) => {
+    Enseignant.find({}).populate('statut').then(enseignants => {
+        res.render('enseignants/index.html', { enseignants : enseignants});
+    });
+});
+
 
 module.exports = router;
