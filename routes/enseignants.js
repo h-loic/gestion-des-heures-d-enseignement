@@ -17,6 +17,18 @@ router.get('/enseignant/edit/:id', (req,res) => {
     });
 });
 
+router.get('/enseignant/delete/:id', (req, res) => {
+    Enseignant.findOneAndRemove({ _id : req.params.id}).then(() => {
+        res.redirect('/');
+    });
+});
+
+router.get('/enseignant', (req, res) => {
+    Enseignant.find({}).populate('statut').then(enseignants => {
+        res.render('enseignants/index.html', { enseignants : enseignants});
+    });
+});
+
 router.post('/enseignant/:id?', (req, res) => {
     new Promise((resolve, reject) =>{
         if (req.params.id){
@@ -37,12 +49,5 @@ router.post('/enseignant/:id?', (req, res) => {
         res.redirect('/enseignant');
     }, err => console.log(err));
 });
-
-router.get('/enseignant', (req, res) => {
-    Enseignant.find({}).populate('statut').then(enseignants => {
-        res.render('enseignants/index.html', { enseignants : enseignants});
-    });
-});
-
 
 module.exports = router;
