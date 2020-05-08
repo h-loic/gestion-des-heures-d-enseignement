@@ -24,11 +24,10 @@ app.use(bodyParser.urlencoded());
 app.use(upload.single('file'));
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/images',express.static(__dirname + '/images'));
 app.use('/', require('./routes/statuts'));
 app.use('/', require('./routes/enseignants'));
 app.use('/', require('./routes/accueil'));
-
-app.use('/images',express.static(__dirname + '/images'));
 
 nunjucks.configure('views',{
     autoescape: true,
