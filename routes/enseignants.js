@@ -23,8 +23,14 @@ router.get('/enseignant/delete/:id', (req, res) => {
     });
 });
 
+router.get('/enseignant-statut', (req, res) => {
+    Enseignant.find({}).populate('statut').sort({statut : 1}).then(enseignants => {
+        res.render('enseignants/index.html', { enseignants : enseignants});
+    });
+});
+
 router.get('/enseignant', (req, res) => {
-    Enseignant.find({}).populate('statut').then(enseignants => {
+    Enseignant.find({}).populate('statut').sort({surnom : 1}).then(enseignants => {
         res.render('enseignants/index.html', { enseignants : enseignants});
     });
 });
