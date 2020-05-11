@@ -13,7 +13,7 @@
         {% for projet in projets %}
 
         <div class="row">
-            <a class="btn btn-info col-12 mb-3">{{ projet.nom }}</a>
+            <a href="projet/{{ projet._id }}" class="btn btn-info col-12 mb-3">{{ projet.nom }}</a>
         </div>
 
         {% endfor %}
