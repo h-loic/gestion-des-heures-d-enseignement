@@ -25,7 +25,13 @@ router.get('/formation/edit-periode/:id/:idPeriode', (req,res) => {
 router.post('/formation/edit-periode/:id/:idPeriode', (req, res) => {
     Formation.findById(req.params.id).then(formation => {
         let periode = formation.periode.id(req.params.idPeriode);
-        periode.nom_periode = req.body.nom ;
+        periode.nom_periode = req.body.nom;
+        periode.surnom_periode = req.body.surnom;
+        periode.duree = req.body.duree;
+        periode.nombre_groupe_CM = req.body.nombre_groupe_CM;
+        periode.nombre_groupe_TD = req.body.nombre_groupe_TD;
+        periode.nombre_groupe_TP = req.body.nombre_groupe_TP;
+        periode.nombre_groupe_Partiel = req.body.nombre_groupe_Partiel;
         return formation.save();
     }).then(() => {
         res.redirect('/formation');
@@ -35,7 +41,13 @@ router.post('/formation/edit-periode/:id/:idPeriode', (req, res) => {
 router.post('/formation/add-periode/:id?', (req, res) => {
     Formation.findById(req.params.id).then(formation => {
         formation.periode.push({
-            nom_periode : req.body.nom
+            nom_periode : req.body.nom,
+            surnom_periode : req.body.surnom,
+            duree : req.body.duree,
+            nombre_groupe_CM : req.body.nombre_groupe_CM,
+            nombre_groupe_TD : req.body.nombre_groupe_TD,
+            nombre_groupe_TP : req.body.nombre_groupe_TP,
+            nombre_groupe_Partiel : req.body.nombre_groupe_Partiel
         });
         return formation.save();
     }).then(() => {
