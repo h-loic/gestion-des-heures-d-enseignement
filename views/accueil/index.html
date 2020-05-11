@@ -3,10 +3,20 @@
 {% block content %}
     <div class="container">
         <div class="row justify-content-around mt-4 mb-4">
-            <a href="/formation" type="button" class="btn btn-outline-info col-md-5 m-1 align-content-center">gestion des formations</a>
-            <a href="/enseignant" type="button" class="btn btn-outline-info col-md-5 m-1 align-content-center">gestion des enseignants</a>
-            <a href="/" type="button" class="btn btn-outline-info col-md-5 m-1 align-content-center m-5">creer un nouveau projet</a>
+            <a href="/formation" type="button" class="btn btn-outline-info col-md-6 mt-1 mb-1">gestion des formations</a>
+            <a href="/enseignant" type="button" class="btn btn-outline-info col-md-6 mt-1 mb-1">gestion des enseignants</a>
         </div>
+        <p class="h1 justify-content-start mt-3 mb-3">liste des projets</p>
+        <div class="row justify-content-around">
+            <a href="/projet/new" type="button" class="btn btn-outline-info col-md-5 mt-3 mb-5">creer un nouveau projet</a>
+        </div>
+        {% for projet in projets %}
+
+        <div class="row">
+            <a class="btn btn-info col-12 mb-3">{{ projet.nom }}</a>
+        </div>
+
+        {% endfor %}
     </div>
 
 {% endblock %}

@@ -16,6 +16,8 @@ mongoose.connect('mongodb+srv://lhug:ZER2k66*o5@cluster-zebvi.mongodb.net/test?r
 
 require('./models/Enseignant');
 require('./models/Statut');
+require('./models/Projet');
+require('./models/Formation');
 
 var app = express();
 
@@ -28,6 +30,7 @@ app.use('/images',express.static(__dirname + '/images'));
 app.use('/', require('./routes/statuts'));
 app.use('/', require('./routes/enseignants'));
 app.use('/', require('./routes/formations'));
+app.use('/', require('./routes/projet'));
 app.use('/', require('./routes/accueil'));
 
 nunjucks.configure('views',{
