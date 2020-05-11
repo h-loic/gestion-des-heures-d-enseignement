@@ -27,6 +27,7 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/images',express.static(__dirname + '/images'));
 app.use('/', require('./routes/statuts'));
 app.use('/', require('./routes/enseignants'));
+app.use('/', require('./routes/formations'));
 app.use('/', require('./routes/accueil'));
 
 nunjucks.configure('views',{

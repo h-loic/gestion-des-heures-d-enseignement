@@ -1,0 +1,98 @@
+base de données utilisé : Mongodb 
+
+Collections :
+
+enseignant 
+{
+	id : generer
+	nom : String
+	prenom : String
+	surnom : String
+	email : String
+	statut : {
+		statut : mongoose.Schema.Types.ObjectId
+	}
+}
+
+statuts 
+{
+	id : generer
+	nom : String
+	surnom : String
+	nombre_heure_minimal : Number
+	nombre_heure_maximal : Number
+}
+
+projet
+{
+	id : generer
+	nom : String
+	date_debut : Date
+	date_fin : Date
+	intervenant : [{
+		intervenant : mongoose.Schema.Types.ObjectId
+	}]
+	formation : [{
+		formation :  mongoose.Schema.Types.ObjectId
+	}]
+}
+
+intervenant
+{
+	nombre_heure_minimal : Number
+	nombre_heure_maximal : Number
+	nombre_heure_attribuer : [nbCM,nbTD,nbTP,nbPartiel]
+	enseignant : mongoose.Schema.Types.ObjectId
+}
+
+formation
+{
+	nom : String
+	periode : [
+		{
+			periode : mongoose.Schema.Types.ObjectId
+		}
+	]
+}
+
+periode
+{
+	nom : String
+	durée : Number
+	code : String
+	nombre_groupe_CM : Number
+	nombre_groupe_TD : Number
+	nombre_groupe_TP : Number
+	nombre_groupe_Partiel : Number
+	decomposition : [
+		{
+			decomposition : mongoose.Schema.Types.ObjectId
+		}
+	]
+}
+
+
+decomposition
+{
+	titre : String
+	surnom : String
+	code : Number
+	element_parent : mongoose.Schema.Types.ObjectId
+	indice : Number
+	mode_saisie : Number
+	nombre_heure_CM : Number
+	nombre_heure_TD : Number
+	nombre_heure_TP : Number
+	nombre_heure_Partiel : Number
+	intervenant : [
+		{
+			mongoose.Schema.Types.ObjectId
+		}
+	]
+	decomposition : [
+		{
+			mongoose.Schema.Types.ObjectId
+		}
+	]
+}
+
