@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/">Accueil</a>
+    <a class="breadcrumb-item" href="/projet/{{ projet._id }}">Projet {{ projet.nom }}</a>
+    <a class="breadcrumb-item" href="/projet/decomposition/{{ projet._id }}/{{ idFormation }}">Decomposition {{ formation.nom }}</a>
+    <span class="breadcrumb-item active">ajouter-modifier</span>
+</nav>
+<div class="container">
+    <form method="post" action="{{ endpoint }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" class="form-control" value="{{ decomposition.nom }}">
+        </div>
+        <div class="form-group">
+            <label for="surnom">Surnom</label>
+            <input type="text" id="surnom" name="surnom" class="form-control" value="{{ decomposition.surnom }}">
+        </div>
+        <div class="form-group" style="display: none">
+            <input type="text" id="element_parent" name="element_parent" class="form-control" value="{{ idParent }}">
+        </div>
+        <div class="form-group">
+            <label for="mode_saisie">Mode de saisie</label>
+            <select class="custom-select" id="mode_saisie">
+                <option value="pas_de_saisie">pas de saisie</option>
+                <option value="hebdo">saisie hebdomadaire</option>
+                <option value="global">saisie global</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="nombre_heure_CM">Nombre d'heure de CM</label>
+            <input type="text" id="nombre_heure_CM" name="nombre_heure_CM" class="form-control" value="{{ decomposition.nombre_heure_CM }}">
+        </div>
+        <div class="form-group">
+            <label for="nombre_heure_TD">Nombre d'heure de TD</label>
+            <input type="text" id="nombre_heure_TD" name="nombre_heure_TD" class="form-control" value="{{ decomposition.nombre_heure_TD }}">
+        </div>
+        <div class="form-group">
+            <label for="nombre_heure_TP">Nombre d'heure de TP</label>
+            <input type="text" id="nombre_heure_TP" name="nombre_heure_TP" class="form-control" value="{{ decomposition.nombre_heure_TP }}">
+        </div>
+        <div class="form-group">
+            <label for="nombre_heure_Partiel">Nombre d'heure de Partiel</label>
+            <input type="text" id="nombre_heure_Partiel" name="nombre_heure_Partiel" class="form-control" value="{{ decomposition.nombre_heure_Partiel }}">
+        </div>
+        <input type="submit" class="btn btn-primary" value="enregistrer">
+    </form>
+</div>
+
+{% endblock %}
