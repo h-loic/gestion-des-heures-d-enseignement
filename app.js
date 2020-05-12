@@ -32,6 +32,7 @@ app.use('/', require('./routes/enseignants'));
 app.use('/', require('./routes/formations'));
 app.use('/', require('./routes/projet'));
 app.use('/', require('./routes/accueil'));
+app.use('/', require('./routes/decomposition'));
 
 nunjucks.configure('views',{
     autoescape: true,

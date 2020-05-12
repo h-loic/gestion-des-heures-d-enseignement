@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="/">Accueil</a>
+        <a class="breadcrumb-item" href="/projet/{{ projet._id }}">Projet {{ projet.nom }}</a>
+        <span class="breadcrumb-item active">Decomposition {{ formation.nom }}</span>
+    </nav>
+    <div class="container text-center">
+        <p class="h1 justify-content-start mt-3 mb-3">{{ projet.nom }}</p>
+
+        {% for periode in formation.periode %}
+            <div class="h4 mt-5">{{ periode.nom_periode }}</div>
+            <table class="table table-bordered mb-3">
+                <tr>
+                    {% for semaine in range(1, periode.duree) %}
+                        <td>{{ semaine }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td colspan="{{ periode.duree }}">
+                        <a href="" class="text-center">ajouter un fils</a>
+                    </td>
+                </tr>
+            </table>
+        {% endfor %}
+    </div>
+
+{% endblock %}
