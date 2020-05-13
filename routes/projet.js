@@ -1,6 +1,37 @@
 var router = require('express').Router();
 var Projet = require('./../models/Projet');
 var Formation = require('./../models/Formation');
+var Enseignant = require('./../models/Enseignant');
+var Statut = require('./../models/Statut');
+
+router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
+    Projet.findById(req.params.idProjet).then(projet => {
+        Enseignant.findById(req.params.idEnseignant).populate('statut').then(enseignant => {
+            let nombre_heure_max = enseignant.statut.heure_normal_max + enseignant.statut.heure_supp_max ;
+            projet.intervenants.push({
+                nombre_heure_minimal : enseignant.statut.heure_normal_min,
+                nombre_heure_maximal : nombre_heure_max,
+                nombre_heure_CM : 0,
+                nombre_heure_TD : 0,
+                nombre_heure_TP : 0,
+                nombre_heure_Partiel : 0,
+                enseignant : enseignant._id
+            });
+            console.log(projet.intervenants);
+            return projet.save();
+        });
+    }).then(() => {
+        res.redirect('/projet/intervenant/' + req.params.idProjet);
+    }, err => console.log(err));
+});
+
+router.get('/projet/intervenant/:idProjet', (req,res) => {
+    Projet.findById(req.params.idProjet).then(projet =>{
+        Enseignant.find({}).then(enseignants =>{
+            res.render('projets/intervenants/index.html', { projet : projet, enseignants : enseignants});
+        });
+    });
+});
 
 router.get('/projet/new', (req,res) => {
     Formation.find({}).then(formations =>{

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/">Accueil</a>
+    <a class="breadcrumb-item" href="/projet/{{ projet._id }}">Projet {{ projet.nom}}</a>
+    <a class="breadcrumb-item" href="/projet/intervenant/{{ projet._id }}">intervenants</a>
+    <span class="breadcrumb-item active">ajouter-modifier</span>
+</nav>
+
+<div class="container">
+    <form method="post" action="{{ endpoint }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nombre_heure_minimal">Nombre d'heure minimal</label>
+            <input type="text" id="nombre_heure_minimal" name="nombre_heure_minimal" class="form-control" value="{{ projet.nom }}">
+        </div>
+        <label for="label">formations </label>
+        <div class="form-check" id="label">
+            {% for formation in formations %}
+            <br>
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="formations" value="{{ formation._id }}"
+                       {% if projet.formations.indexOf(formation._id) != -1 %} checked {% endif %}>
+                {{ formation.nom }}
+            </label>
+            <br>
+            {% endfor %}
+        </div>
+        <input type="submit" class="btn btn-primary mt-3" value="enregistrer">
+    </form>
+</div>
+
+
+
+{% endblock %}
