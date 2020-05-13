@@ -8,11 +8,6 @@
     <span class="breadcrumb-item active">Intervenants</span>
 </nav>
 <div class="container">
-    <!--
-    <div class="row justify-content-around mt-4 mb-4">
-        <a href="/projet/intervenant/new" type="button" class="btn btn-outline-info col-md-5 align-content-center">ajouter un intervenant</a>
-    </div>
-    -->
     <div class="row justify-content-around mt-4 mb-4">
         <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -22,9 +17,6 @@
                 {% for enseignant in enseignants %}
                     <a class="dropdown-item" href="/projet/intervenant/new/{{ projet._id }}/{{ enseignant._id }}">{{ enseignant.nom }} {{ enseignant.prenom }}</a>
                 {% endfor %}
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
             </div>
         </div>
     </div>
@@ -44,8 +36,8 @@
                 <tbody>
                 {% for intervenant in projet.intervenants %}
                 <tr>
-                    <td scope="row">{{ intervenant.enseignant.statut.surnom}}</td>
-                    <td>{{ intervenant.enseignant.statut.nom }}</td>
+                    <td scope="row">{{ intervenant.enseignant.surnom}}</td>
+                    <td>{{ intervenant.enseignant.nom }}</td>
                     <td>{{ intervenant.enseignant.statut.heure_normal_min }}-{{ intervenant.enseignant.statut.heure_normal_max }}</td>
                     <td>{{ intervenant.enseignant.statut.heure_supp_min }}-{{ intervenant.enseignant.statut.heure_supp_max }}</td>
                     <td>

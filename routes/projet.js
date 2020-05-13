@@ -17,7 +17,6 @@ router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
                 nombre_heure_Partiel : 0,
                 enseignant : enseignant._id
             });
-            console.log(projet.intervenants);
             return projet.save();
         });
     }).then(() => {
@@ -26,9 +25,11 @@ router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
 });
 
 router.get('/projet/intervenant/:idProjet', (req,res) => {
-    Projet.findById(req.params.idProjet).then(projet =>{
-        Enseignant.find({}).then(enseignants =>{
-            res.render('projets/intervenants/index.html', { projet : projet, enseignants : enseignants});
+    Projet.findById(req.params.idProjet).populate('intervenants.enseignant').then(projet =>{
+        projet.populate('intervenants.enseignant.statut').execPopulate().then((projet) => {
+            Enseignant.find({}).then(enseignants =>{
+                res.render('projets/intervenants/index.html', { projet : projet, enseignants : enseignants});
+            });
         });
     });
 });
