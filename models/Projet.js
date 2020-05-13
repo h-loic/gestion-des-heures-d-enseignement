@@ -22,6 +22,18 @@ var projetSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref : 'Formation'
         }],
+    intervenant: [{
+        nombre_heure_minimal : Number,
+        nombre_heure_maximal : Number,
+        nombre_heure_CM : Number,
+        nombre_heure_TD : Number,
+        nombre_heure_TP : Number,
+        nombre_heure_Partiel : Number,
+        Enseignant: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Enseignant'
+        }
+    }],
     decomposition : [decomposition]
 });
 
