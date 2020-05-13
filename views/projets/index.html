@@ -12,12 +12,10 @@
         </div>
         <p class="h1 justify-content-start mt-3 mb-3">{{ projet.nom }}</p>
 
-        {% for formation in formations %}
-
-        <div class="row">
-            <a href="decomposition/{{ projet._id }}/{{ formation._id }}" class="btn btn-info col-12 mb-3">{{ formation.nom }}</a>
-        </div>
-
+        {% for formation in projet.formations %}
+            <div class="row">
+                <a href="decomposition/{{ projet._id }}/{{ formation._id }}" class="btn btn-info col-12 mb-3">{{ formation }}</a>
+            </div>
         {% endfor %}
 
         <a href="/projet/delete/{{ projet._id }}" class="btn btn-danger">supprimer ce projet</a>
