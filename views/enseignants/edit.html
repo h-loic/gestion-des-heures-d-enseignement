@@ -24,15 +24,20 @@
                 <label for="email">email</label>
                 <input type="text" id="email" name="email" class="form-control" value="{{ enseignant.email }}">
             </div>
-            <div class="form-group">
-                {% for statut in statuts %}
-                    <label>
-                        <input type="checkbox" name="statut" value="{{ statut._id }}">
-                        {{ statut.nom }}
-                    </label>
-                {% endfor %}
+
+            <label for="statut">Statut </label>
+            <div class="form-check" id="statut">
+            {% for statut in statuts %}
+                <br>
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="statut" value="{{ statut._id }}"
+                           {% if (enseignant.statut != undefined) %} {% if enseignant.statut.toString() == statut._id.toString() %} checked {% endif %} {% endif %}>
+                    {{ statut.nom }}
+                </label>
+                <br>
+            {% endfor %}
             </div>
-            <input type="submit" class="btn btn-primary" value="enregistrer">
+            <input type="submit" class="btn btn-primary mt-3" value="enregistrer">
         </form>
     </div>
 
