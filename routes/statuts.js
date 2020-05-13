@@ -1,4 +1,5 @@
 var router = require('express').Router();
+const { check, validationResult } = require('express-validator');
 
 var Statut = require('./../models/Statut');
 
@@ -25,7 +26,14 @@ router.get('/enseignant/statut', (req, res) => {
     });
 });
 
-router.post('/enseignant/statut/:id?', (req, res) => {
+router.post('/enseignant/statut/:id?', [
+    check('nom').isLength({ min: 1 }).withMessage('le nom est obligatoire'),
+    check('surnom').isLength({ min: 1 }).withMessage('le surnom est obligatoire'),
+    check('heure_normal_min').isNumeric().withMessage('le nombre d heure normal minimal doit etre un nombre'),
+    check('heure_normal_max').isNumeric().withMessage('le nombre d heure normal maximal doit etre un nombre'),
+    check('heure_supp_min').isNumeric().withMessage('le nombre d heure supplémentaire minimal doit etre un nombre'),
+    check('heure_supp_max').isNumeric().withMessage('le nombre d heure supplémentaire maximal doit etre un nombre'),
+], (req, res) => {
     new Promise((resolve, reject) =>{
         if (req.params.id){
             Statut.findById(req.params.id).then(resolve,reject);
@@ -34,17 +42,22 @@ router.post('/enseignant/statut/:id?', (req, res) => {
             resolve(new Statut());
         }
     }).then(statut => {
-        statut.nom = req.body.nom;
-        statut.surnom = req.body.surnom;
-        statut.heure_normal_min = req.body.heure_normal_min;
-        statut.heure_normal_max = req.body.heure_normal_max;
-        statut.heure_supp_min = req.body.heure_supp_min;
-        statut.heure_supp_max = req.body.heure_supp_max;
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.render('statuts/edit.html', { statut : statut, errors : errors.array() ,endpoint: '/enseignant/statut/' + statut._id.toString()});
+        }else {
+            statut.nom = req.body.nom;
+            statut.surnom = req.body.surnom;
+            statut.heure_normal_min = req.body.heure_normal_min;
+            statut.heure_normal_max = req.body.heure_normal_max;
+            statut.heure_supp_min = req.body.heure_supp_min;
+            statut.heure_supp_max = req.body.heure_supp_max;
 
-        return statut.save();
-    }).then(() => {
-        res.redirect('/enseignant/statut');
-    }, err => console.log(err));
+            statut.save();
+
+            return res.redirect('/enseignant/statut');
+        }
+    })
 });
 
 module.exports = router;

@@ -8,6 +8,11 @@
     <span class="breadcrumb-item active">ajouter-modifier</span>
 </nav>
 <div class="container">
+    {% for error in errors %}
+        <div class="alert alert-danger" role="alert">
+            {{ error.msg }}
+        </div>
+    {% endfor %}
     <form method="post" action="{{ endpoint }}" enctype="multipart/form-data">
         <div class="form-group">
             <label for="nom">Nom</label>
