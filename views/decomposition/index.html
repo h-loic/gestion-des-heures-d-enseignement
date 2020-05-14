@@ -13,12 +13,28 @@
             <div class="h4 mt-5">{{ periode.nom_periode }}</div>
             <table class="table table-bordered mb-3">
                 <tr>
+                    {% for i in range(0, tableau_decomposition.length + 1) %}
+                        <td></td>
+                    {% endfor %}
                     {% for semaine in range(1, periode.duree) %}
                         <td>{{ semaine }}</td>
                     {% endfor %}
                 </tr>
+                {% for UE in tableau_decomposition[0] %}
+                    <tr>
+                        <td>{{ UE.nom }}
+                            <a href="/projet/decomposition/{{ projet._id}}/{{ formation._id }}/{{ UE._id }}/2"> ajouter un fils</a>
+                        {% for i in tableau_decomposition[1] %}
+                            {% if UE._id | string === i.element_parent | string %}
+                                <td>{{ i.nom }}
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
                 <tr>
-                    <td colspan="{{ periode.duree }}">
+                    <td colspan="{{ periode.duree + tableau_decomposition.length}}">
                         <a href="/projet/decomposition/{{ projet._id}}/{{ formation._id }}/{{ periode._id }}/1" class="text-center">ajouter un fils</a>
                     </td>
                 </tr>

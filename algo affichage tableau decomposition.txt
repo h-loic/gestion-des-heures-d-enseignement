@@ -1,0 +1,41 @@
+TRI DES DECOMPOSITIONS EN FONCTION DE LEURS INDICE -------------------------
+
+let tableau_decomposition = [];
+let compteur = 1;
+let en_cours = true;
+while (en_cours){
+    let tab = [];
+    for (let i = 0; i < decompositions.length; i++){
+        if (decompositions[i].indice === compteur){
+            tab.push(decompositions[i]);
+        }
+    }
+    if (tab.length === 0){
+        en_cours = false;
+    }else{
+        tableau_decomposition.push(tab);
+        compteur+=1;
+    }
+}
+
+
+AFFICHAGE DU TABLEAU DES DECOMPOSITION VERSION STATIC ----------------------
+
+Pour periode in formation :
+	afficher un tableau
+	Pour UE in tableau_decomposition[0]:
+		Si UE.parent == periode :
+			afficher UE
+			Pour module in tableau_decomposition[1]:
+				Si module.parent == UE:
+					afficher module
+					Pour matiere in tableau_decomposition[2]:
+						Si matiere.parent == module :
+							afficher Matiere
+
+
+AFFICHAGE DU TABLEAU DES DECOMPOSITION VERSION DYNAMIQUE--------------------
+
+Pour periode in formation :
+	afficher tableau
+	tant que 
