@@ -32,6 +32,14 @@ router.get('/projet/intervenant/edit/:idProjet/:idIntervenant', (req,res) => {
     });
 });
 
+router.get('/projet/intervenant/delete/:idProjet/:idIntervenant', (req, res) => {
+    Projet.findById(req.params.idProjet).then(projet =>{
+        projet.intervenants.id(req.params.idIntervenant).remove();
+        projet.save();
+        res.redirect('/projet/intervenant/' + req.params.idProjet);
+    });
+});
+
 router.post('/projet/intervenant/:idProjet/:idIntervenant', (req, res) => {
     Projet.findById(req.params.idProjet).then(projet => {
         let intervenant = projet.intervenants.id(req.params.idIntervenant);
