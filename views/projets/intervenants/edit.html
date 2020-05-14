@@ -13,19 +13,11 @@
     <form method="post" action="{{ endpoint }}" enctype="multipart/form-data">
         <div class="form-group">
             <label for="nombre_heure_minimal">Nombre d'heure minimal</label>
-            <input type="text" id="nombre_heure_minimal" name="nombre_heure_minimal" class="form-control" value="{{ projet.nom }}">
+            <input type="text" id="nombre_heure_minimal" name="nombre_heure_minimal" class="form-control" value="{{ intervenant.nombre_heure_minimal }}">
         </div>
-        <label for="label">formations </label>
-        <div class="form-check" id="label">
-            {% for formation in formations %}
-            <br>
-            <label class="form-check-label">
-                <input class="form-check-input" type="checkbox" name="formations" value="{{ formation._id }}"
-                       {% if projet.formations.indexOf(formation._id) != -1 %} checked {% endif %}>
-                {{ formation.nom }}
-            </label>
-            <br>
-            {% endfor %}
+        <div class="form-group">
+            <label for="nombre_heure_maximal">Nombre d'heure maximal</label>
+            <input type="text" id="nombre_heure_maximal" name="nombre_heure_maximal" class="form-control" value="{{ intervenant.nombre_heure_maximal }}">
         </div>
         <input type="submit" class="btn btn-primary mt-3" value="enregistrer">
     </form>

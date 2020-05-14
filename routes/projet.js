@@ -24,6 +24,26 @@ router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
     }, err => console.log(err));
 });
 
+router.get('/projet/intervenant/edit/:idProjet/:idIntervenant', (req,res) => {
+    Projet.findById(req.params.idProjet).then(projet =>{
+        let intervenant = projet.intervenants.id(req.params.idIntervenant);
+        res.render('projets/intervenants/edit.html', { projet : projet, intervenant : intervenant,
+            endpoint : '/projet/intervenant/' + req.params.idProjet + '/' + req.params.idIntervenant});
+    });
+});
+
+router.post('/projet/intervenant/:idProjet/:idIntervenant', (req, res) => {
+    Projet.findById(req.params.idProjet).then(projet => {
+        let intervenant = projet.intervenants.id(req.params.idIntervenant);
+        intervenant.nombre_heure_maximal = req.body.nombre_heure_maximal;
+        intervenant.nombre_heure_minimal = req.body.nombre_heure_minimal;
+        return projet.save();
+    }).then(() => {
+        res.redirect('/projet/intervenant/'+ req.params.idProjet);
+    }, err => console.log(err));
+});
+
+
 router.get('/projet/intervenant/:idProjet', (req,res) => {
     Projet.findById(req.params.idProjet).populate('intervenants.enseignant').then(projet =>{
         projet.populate('intervenants.enseignant.statut').execPopulate().then((projet) => {
