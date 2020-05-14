@@ -102,7 +102,7 @@ router.post('/projet/:id?', (req, res) => {
 
 router.get('/projet/:id', (req, res) => {
     Formation.find({}).then(formations =>{
-        Projet.findById(req.params.id).then(projet => {
+        Projet.findById(req.params.id).populate('formations').then(projet => {
             res.render('projets/index.html', { projet : projet, formations : formations});
         });
     });

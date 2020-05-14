@@ -14,7 +14,7 @@
 
         {% for formation in projet.formations %}
             <div class="row">
-                <a href="decomposition/{{ projet._id }}/{{ formation._id }}" class="btn btn-info col-12 mb-3">{{ formation }}</a>
+                <a href="decomposition/{{ projet._id }}/{{ formation._id }}" class="btn btn-info col-12 mb-3">{{ formation.nom }}</a>
             </div>
         {% endfor %}
 
