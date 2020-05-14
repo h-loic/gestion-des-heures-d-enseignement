@@ -9,7 +9,6 @@ router.get('/projet/decomposition/:idProjet/:idFormation', (req,res) => {
         });
     });
 });
-
 router.get('/projet/decomposition/:idProjet/:idFormation/:idParent/:indice', (req,res) => {
     Projet.findById(req.params.idProjet).then(projet => {
         res.render('decomposition/edit.html', { projet : projet,idFormation : req.params.idFormation,
@@ -57,6 +56,5 @@ router.get('/projet/:id', (req, res) => {
         });
     });
 });
-
 
 module.exports = router;

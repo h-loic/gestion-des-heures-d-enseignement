@@ -20,9 +20,13 @@
         <div class="form-group" style="display: none">
             <input type="text" id="element_parent" name="element_parent" class="form-control" value="{{ idParent }}">
         </div>
+        <div class="form-group" style="display: none">
+            <input type="text" id="indice" name="indice" class="form-control" value="{{ indice }}">
+        </div>
         <div class="form-group">
             <label for="mode_saisie">Mode de saisie</label>
-            <select class="custom-select" id="mode_saisie">
+            <select class="custom-select" id="mode_saisie" name="mode_saisie">
+                <option value="non_definie">choisisser un mode de saisie</option>
                 <option value="pas_de_saisie">pas de saisie</option>
                 <option value="hebdo">saisie hebdomadaire</option>
                 <option value="global">saisie global</option>
