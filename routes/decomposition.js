@@ -5,6 +5,27 @@ var Projet = require('./../models/Projet');
 router.get('/projet/decomposition/:idProjet/:idFormation', (req,res) => {
     Formation.findById(req.params.idFormation).then(formation =>{
         Projet.findById(req.params.idProjet).then(projet => {
+            let decompositions = projet.decomposition;
+            console.log(decompositions);
+            let tableau_decomposition = [];
+            let compteur = 1;
+            let en_cours = true;
+            while (en_cours){
+                let tab = [];
+                for (let i = 0; i < decompositions.length; i++){
+                    if (decompositions[i].indice === compteur){
+                        tab.push(decompositions[i]);
+                    }
+                }
+                if (tab.length === 0){
+                    en_cours = false;
+                }else{
+                    tableau_decomposition.push(tab);
+                    compteur+=1;
+                }
+            }
+            console.log(tableau_decomposition);
+
             res.render('decomposition/index.html', {formation: formation, projet : projet});
         });
     });
