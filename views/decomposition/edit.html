@@ -21,8 +21,8 @@
             <label for="mode_saisie">Mode de saisie</label>
             <select class="custom-select" id="mode_saisie" name="mode_saisie">
                 <option value="non_definie">choisisser un mode de saisie</option>
-                <option value="pas_de_saisie">pas de saisie</option>
-                <option value="hebdo">saisie hebdomadaire</option>
+                <option value="pas_de_saisie" {% if decomposition.mode_saisie === 'pas_de_saisie' %} selected {% endif %}>pas de saisie</option>
+                <option value="hebdo" {% if decomposition.mode_saisie === 'hebdo' %} selected {% endif %}>saisie hebdomadaire</option>
                 <option value="global">saisie global</option>
             </select>
         </div>

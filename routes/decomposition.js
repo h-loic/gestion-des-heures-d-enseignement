@@ -38,11 +38,17 @@ router.get('/projet/decomposition/new/:idProjet/:idFormation/:idParent/:indice',
 
 router.get('/projet/decomposition/edit/:idProjet/:idFormation/:idDecomposition', (req,res) => {
     Projet.findById(req.params.idProjet).then(projet => {
-        console.log(projet);
         let decomposition = projet.decomposition.id(req.params.idDecomposition);
-        console.log(decomposition);
-        res.render('decomposition/edit.html', {projet : projet, decomposition : decomposition,
+        res.render('decomposition/edit.html', {projet : projet, decomposition : decomposition, idFormation : req.params.idFormation,
             endpoint : '/projet/decomposition/edit/' + projet._id.toString() + '/' + req.params.idFormation + '/' + req.params.idDecomposition});
+    });
+});
+
+router.get('/projet/decomposition/delete/:idProjet/:idFormation/:idDecomposition', (req,res) => {
+    Projet.findById(req.params.idProjet).then(projet => {
+        projet.decomposition.id(req.params.idDecomposition).remove();
+        projet.save();
+        res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
     });
 });
 
