@@ -13,12 +13,11 @@
             <div class="h4 mt-5">{{ periode.nom_periode }}</div>
             <table class="table table-bordered mb-3">
                 <tr>
-                    {% for i in range(0, tableau_decomposition.length) %}
-                        <td></td>
-                    {% endfor %}
+                    <td colspan="{{ tableau_decomposition.length }}"></td>
                     {% for semaine in range(1, periode.duree) %}
                         <td>{{ semaine }}</td>
                     {% endfor %}
+                    <td>Total </td>
                 </tr>
                 {% for UE in tableau_decomposition[0] %}
                     {% if UE.element_parent | string === periode._id | string %}
@@ -30,72 +29,81 @@
                         </tr>
                         {% for i in tableau_decomposition[1] %}
                             {% if UE._id | string === i.element_parent | string %}
-                                {% if i.mode_saisie | string === hebdo %}
-                                    <tr>
-                                        <td colspan="{{tableau_decomposition.length}}">{{ i.nom }}
-                                        </td>
-                                        <td colspan="{{ periode.duree}}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="{{tableau_decomposition.length}}" rowspan="4"></td>
-                                            {% for semaine in range(1, periode.duree) %}
-                                                <td>0</td>
-                                            {% endfor %}
-                                    </tr>
-                                    <tr>
-                                        <td colspan="{{tableau_decomposition.length}}" rowspan="4"></td>
-                                        {% for semaine in range(1, periode.duree) %}
-                                        <td>0</td>
-                                        {% endfor %}
-                                    </tr>
-                                    <tr>
-                                        <td colspan="{{tableau_decomposition.length}}" rowspan="4"></td>
-                                        {% for semaine in range(1, periode.duree) %}
-                                        <td>0</td>
-                                        {% endfor %}
-                                    </tr>
-                                    <tr>
-                                        <td colspan="{{tableau_decomposition.length}}" rowspan="4"></td>
-                                        {% for semaine in range(1, periode.duree) %}
-                                        <td>0</td>
-                                        {% endfor %}
-                                    </tr>
+                                {% if i.mode_saisie | string === 'hebdo' %}
+                                <tr>
+                                    <td colspan="{{tableau_decomposition.length - 1}}"  rowspan="4">{{ i.nom }}
+                                    </td>
+                                    <td>CM</td>
+                                    {% for semaine in range(1, periode.duree) %}
+                                    <td>0</td>
+                                    {% endfor %}
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>TD</td>
+                                    {% for semaine in range(1, periode.duree) %}
+                                    <td>0</td>
+                                    {% endfor %}
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>TP</td>
+                                    {% for semaine in range(1, periode.duree) %}
+                                    <td>0</td>
+                                    {% endfor %}
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Partiel</td>
+                                    {% for semaine in range(1, periode.duree) %}
+                                    <td>0</td>
+                                    {% endfor %}
+                                    <td></td>
+                                </tr>
                                 {% else %}
                                     <tr>
                                         <td colspan="{{tableau_decomposition.length}}">{{ i.nom }}
                                             <br>
                                             <a href="/projet/decomposition/{{ projet._id}}/{{ formation._id }}/{{ i._id }}/3">ajouter un fils</a>
                                         </td>
-                                        <td colspan="{{ periode.duree}}"></td>
+                                        <td colspan="{{ periode.duree +1 }}"></td>
                                     </tr>
                                     {% for j in tableau_decomposition[2] %}
                                         {% if i._id | string === j.element_parent | string %}
                                             {% if j.mode_saisie | string === 'hebdo' %}
                                                 <tr>
-                                                    <td colspan="{{tableau_decomposition.length}}"  rowspan="4">{{ j.nom }}
+                                                    <td colspan="{{tableau_decomposition.length - 1}}"  rowspan="4">{{ j.nom }}
                                                     </td>
+                                                    <td>CM ({{periode.nombre_groupe_CM}} grp)</td>
                                                     {% for semaine in range(1, periode.duree) %}
                                                     <td>0</td>
                                                     {% endfor %}
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
+                                                    <td>TD ({{periode.nombre_groupe_CM}} grp)</td>
                                                     {% for semaine in range(1, periode.duree) %}
                                                     <td>0</td>
                                                     {% endfor %}
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
+                                                    <td>TP ({{periode.nombre_groupe_CM}} grp)</td>
                                                     {% for semaine in range(1, periode.duree) %}
                                                     <td>0</td>
                                                     {% endfor %}
+                                                    <td></td>
                                                 </tr>
                                                 <tr>
+                                                    <td>Partiel ({{periode.nombre_groupe_CM}} grp)</td>
                                                     {% for semaine in range(1, periode.duree) %}
                                                     <td>0</td>
                                                     {% endfor %}
+                                                    <td></td>
                                                 </tr>
                                             {% else %}
                                                 <tr>
-                                                    <td colspan="{{tableau_decomposition.length - 1 }}"></td>
+                                                    <td colspan="{{tableau_decomposition.length }}"></td>
                                                     <td>{{ j.nom }}
                                                         <br>
                                                         <a href="/projet/decomposition/{{ projet._id}}/{{ formation._id }}/{{ j._id }}/4">ajouter un fils</a>
@@ -110,12 +118,14 @@
                     {% endif %}
                 {% endfor %}
                 <tr>
-                    <td colspan="{{ periode.duree + tableau_decomposition.length - 2}}">
+                    <td colspan="{{ periode.duree + tableau_decomposition.length }}">
                         <a href="/projet/decomposition/{{ projet._id}}/{{ formation._id }}/{{ periode._id }}/1" class="text-center">ajouter un fils</a>
                     </td>
                 </tr>
             </table>
         {% endfor %}
+
+        <input type="submit" class="btn btn-primary text-center" value="enregistrer">
     </div>
 
 {% endblock %}
