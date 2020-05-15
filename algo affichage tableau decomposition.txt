@@ -34,6 +34,21 @@ Pour periode in formation :
 							afficher Matiere
 
 
+{% for UE in tableau_decomposition[0] %}
+    <tr>
+        <td>{{ UE.nom }}
+            <a href="/projet/decomposition/{{ projet._id}}/{{ formation._id }}/{{ UE._id }}/2"> ajouter un fils</a>
+        {% for i in tableau_decomposition[1] %}
+            {% if UE._id | string === i.element_parent | string %}
+                <td>{{ i.nom }}
+                </td>
+            {% endif %}
+        {% endfor %}
+        </td>
+    </tr>
+{% endfor %}
+
+
 AFFICHAGE DU TABLEAU DES DECOMPOSITION VERSION DYNAMIQUE--------------------
 
 Pour periode in formation :
