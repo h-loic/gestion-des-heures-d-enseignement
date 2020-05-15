@@ -7,10 +7,10 @@ var decomposition = new mongoose.Schema({
     element_parent : String,
     indice : Number,
     mode_saisie : String, //pas de saisie, hebdo, global
-    nombre_heure_CM : Number,
-    nombre_heure_TD : Number,
-    nombre_heure_TP : Number,
-    nombre_heure_Partiel : Number
+    nombre_heure_CM : [Number],
+    nombre_heure_TD : [Number],
+    nombre_heure_TP : [Number],
+    nombre_heure_Partiel : [Number]
 });
 
 var projetSchema = new mongoose.Schema({

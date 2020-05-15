@@ -6,7 +6,6 @@ router.get('/projet/decomposition/:idProjet/:idFormation', (req,res) => {
     Formation.findById(req.params.idFormation).then(formation =>{
         Projet.findById(req.params.idProjet).then(projet => {
             let decompositions = projet.decomposition;
-            console.log(decompositions);
             let tableau_decomposition = [];
             let compteur = 1;
             let en_cours = true;
@@ -24,18 +23,39 @@ router.get('/projet/decomposition/:idProjet/:idFormation', (req,res) => {
                     compteur+=1;
                 }
             }
-            console.log(tableau_decomposition);
-
             res.render('decomposition/index.html', {formation: formation, projet : projet, tableau_decomposition : tableau_decomposition});
         });
     });
 });
-router.get('/projet/decomposition/:idProjet/:idFormation/:idParent/:indice', (req,res) => {
+
+router.get('/projet/decomposition/new/:idProjet/:idFormation/:idParent/:indice', (req,res) => {
     Projet.findById(req.params.idProjet).then(projet => {
-        res.render('decomposition/edit.html', { projet : projet,idFormation : req.params.idFormation,
+        res.render('decomposition/add.html', { projet : projet,idFormation : req.params.idFormation,
             idParent : req.params.idParent, indice : req.params.indice,
             endpoint: '/projet/decomposition/' + projet._id.toString() + '/' + req.params.idFormation});
     });
+});
+
+router.get('/projet/decomposition/edit/:idProjet/:idFormation/:idDecomposition', (req,res) => {
+    Projet.findById(req.params.idProjet).then(projet => {
+        console.log(projet);
+        let decomposition = projet.decomposition.id(req.params.idDecomposition);
+        console.log(decomposition);
+        res.render('decomposition/edit.html', {projet : projet, decomposition : decomposition,
+            endpoint : '/projet/decomposition/edit/' + projet._id.toString() + '/' + req.params.idFormation + '/' + req.params.idDecomposition});
+    });
+});
+
+router.post('/projet/decomposition/edit/:idProjet/:idFormation/:idDecomposition', (req, res) => {
+    Projet.findById(req.params.idProjet).then(projet => {
+        let decomposition = projet.decomposition.id(req.params.idDecomposition);
+        decomposition.nom = req.body.nom;
+        decomposition.surnom = req.body.surnom;
+        decomposition.mode_saisie = req.body.mode_saisie
+        return projet.save();
+    }).then(() => {
+        res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
+    }, err => console.log(err));
 });
 
 router.post('/projet/decomposition/:idProjet/:idFormation', (req, res) => {
@@ -51,10 +71,10 @@ router.post('/projet/decomposition/:idProjet/:idFormation', (req, res) => {
                     element_parent : req.body.element_parent,
                     indice : req.body.indice,
                     mode_saisie : req.body.mode_saisie,
-                    nombre_heure_CM : req.body.nombre_heure_CM,
-                    nombre_heure_TD : req.body.nombre_heure_TD,
-                    nombre_heure_TP : req.body.nombre_heure_TP,
-                    nombre_heure_Partiel : req.body.nombre_heure_Partiel
+                    //nombre_heure_CM : req.body.nombre_heure_CM,
+                    //nombre_heure_TD : req.body.nombre_heure_TD,
+                    //nombre_heure_TP : req.body.nombre_heure_TP,
+                    //nombre_heure_Partiel : req.body.nombre_heure_Partiel
                 });
                 return projet.save();
             }).then(() => {
