@@ -47,32 +47,7 @@ router.post('/projet/intervenant/:idProjet/:idIntervenant', (req, res) => {
             intervenant.nombre_heure_minimal = req.body.nombre_heure_minimal;
             intervenant.nombre_heure_maximal = req.body.nombre_heure_maximal;
             intervenant.save();
-            /*
-            for (let i = 0; i < projet.intervenants.length; i++){
-                console.log(projet.intervenants[i]._id);
-                console.log(req.params.idIntervenant);
-                if (projet.intervenants[i]._id.toString() === req.params.idIntervenant.toString()){
-                    console.log("ok");
-                    console.log(projet.intervenants[i].nombre_heure_maximal);
-                    projet.intervenants[i].nombre_heure_maximal = req.body.nombre_heure_maximal;
-                    console.log(projet.intervenants[i].nombre_heure_maximal);
-                    projet.intervenants[i].nombre_heure_minimal = req.body.nombre_heure_minimal;
-                    return projet.save();
-                }
-            }*/
         });
-        /*
-        projet.intervenants.find({_id : req.params.idIntervenant}).then(intervenant => {
-            intervenant.nombre_heure_maximal = req.body.nombre_heure_maximal;
-            intervenant.nombre_heure_minimal = req.body.nombre_heure_minimal;
-            return projet.save();
-
-        Intervenant.find({_id : req.params.idIntervenant}).then(intervenant => {
-            intervenant.nombre_heure_maximal = req.body.nombre_heure_maximal;
-            intervenant.nombre_heure_minimal = req.body.nombre_heure_minimal;
-            return projet.save();
-
-        });*/
     }).then(() => {
         res.redirect('/projet/intervenant/'+ req.params.idProjet);
     }, err => console.log(err));
