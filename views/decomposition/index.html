@@ -64,28 +64,32 @@
                                         </td>
                                         <td>CM ({{periode.nombre_groupe_CM}} grp)</td>
                                             {% for semaine in range(1, periode.duree) %}
-                                        <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ i.nombre_heure_CM[semaine - 1] }}"></td>
+                                        <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]"
+                                                                value="{% if (i.nombre_heure_CM[semaine - 1] === 0) %}{% else %}{{ i.nombre_heure_CM[semaine - 1] }}{% endif %}"></td>
                                             {% endfor %}
                                         <td class="p-0"><div class="form-control align-middle text-center input-form">{{ i.nombre_heure_CM[periode.duree] }}</div></td>
                                         </tr>
                                         <tr>
                                             <td>TD ({{periode.nombre_groupe_TD}} grp)</td>
                                             {% for semaine in range(1, periode.duree) %}
-                                            <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_TD[]" value="{{ i.nombre_heure_TD[semaine - 1] }}"></td>
+                                            <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_TD[]"
+                                                                   value="{% if (i.nombre_heure_TD[semaine - 1] === 0) %}{% else %}{{ i.nombre_heure_TD[semaine - 1] }}{% endif %}"></td>
                                             {% endfor %}
                                             <td class="p-0"><div class="form-control align-middle text-center input-form">{{ i.nombre_heure_TD[periode.duree] }}</div></td>
                                         </tr>
                                         <tr>
                                             <td>TP ({{periode.nombre_groupe_TP}} grp)</td>
                                             {% for semaine in range(1, periode.duree) %}
-                                            <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_TP[]" value="{{ i.nombre_heure_TP[semaine - 1] }}"></td>
+                                            <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_TP[]"
+                                                                   value="{% if (i.nombre_heure_TP[semaine - 1] === 0) %}{% else %}{{ i.nombre_heure_TP[semaine - 1] }}{% endif %}"></td>
                                             {% endfor %}
                                             <td class="p-0"><div class="form-control align-middle text-center input-form">{{ i.nombre_heure_TP[periode.duree] }}</div></td>
                                         </tr>
                                         <tr>
                                             <td>Partiel ({{periode.nombre_groupe_Partiel}} grp)</td>
                                             {% for semaine in range(1, periode.duree) %}
-                                            <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_Partiel[]" value="{{ i.nombre_heure_Partiel[semaine - 1] }}"></td>
+                                            <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_Partiel[]"
+                                                                   value="{% if (i.nombre_heure_Partiel[semaine - 1] === 0) %}{% else %}{{ i.nombre_heure_Partiel[semaine - 1] }}{% endif %}"></td>
                                             {% endfor %}
                                             <td class="p-0"><div class="form-control align-middle text-center input-form">{{ i.nombre_heure_Partiel[periode.duree] }}</div></td>
                                         </tr>
@@ -137,28 +141,28 @@
                                                         </td>
                                                         <td>CM ({{periode.nombre_groupe_CM}} grp)</td>
                                                         {% for semaine in range(1, periode.duree) %}
-                                                        <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ j.nombre_heure_CM[semaine - 1] }}"></td>
+                                                        <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{% if (j.nombre_heure_CM[semaine - 1] === 0) %}{% else %}{{ j.nombre_heure_CM[semaine - 1] }}{% endif %}"></td>
                                                         {% endfor %}
                                                         <td class="p-0"><div class="form-control align-middle text-center input-form">{{ j.nombre_heure_CM[periode.duree] }}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <td>TD ({{periode.nombre_groupe_TD}} grp)</td>
                                                         {% for semaine in range(1, periode.duree) %}
-                                                        <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_TD[]" value="{{ j.nombre_heure_TD[semaine - 1] }}"></td>
+                                                        <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_TD[]" value="{% if (j.nombre_heure_TD[semaine - 1] === 0) %}{% else %}{{ j.nombre_heure_TD[semaine - 1] }}{% endif %}"></td>
                                                         {% endfor %}
                                                         <td class="p-0"><div class="form-control align-middle text-center input-form">{{ j.nombre_heure_TD[periode.duree] }}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <td>TP ({{periode.nombre_groupe_TP}} grp)</td>
                                                         {% for semaine in range(1, periode.duree) %}
-                                                        <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_TP[]" value="{{ j.nombre_heure_TP[semaine - 1] }}"></td>
+                                                        <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_TP[]" value="{% if (j.nombre_heure_TP[semaine - 1] === 0) %}{% else %}{{ j.nombre_heure_TP[semaine - 1] }}{% endif %}"></td>
                                                         {% endfor %}
                                                         <td class="p-0"><div class="form-control align-middle text-center input-form">{{ j.nombre_heure_TP[periode.duree] }}</div></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Partiel ({{periode.nombre_groupe_Partiel}} grp)</td>
                                                         {% for semaine in range(1, periode.duree) %}
-                                                        <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_Partiel[]" value="{{ j.nombre_heure_Partiel[semaine - 1] }}"></td>
+                                                        <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_Partiel[]" value="{% if (j.nombre_heure_Partiel[semaine - 1] === 0) %}{% else %}{{ j.nombre_heure_Partiel[semaine - 1] }}{% endif %}"></td>
                                                         {% endfor %}
                                                         <td class="p-0"><div class="form-control align-middle text-center input-form">{{ j.nombre_heure_Partiel[periode.duree] }}</div></td>
                                                     </tr>
