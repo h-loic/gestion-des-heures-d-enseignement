@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded());
 app.use(upload.single('file'));
 
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/styles', express.static(__dirname + '/styles'));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/images',express.static(__dirname + '/images'));
 app.use('/', require('./routes/statuts'));

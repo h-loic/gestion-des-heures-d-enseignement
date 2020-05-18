@@ -55,32 +55,36 @@
                                             </svg>
                                             </a>
                                         </div>
-                                        {{ i.nom }}
+                                        <div class="m-3">
+                                            {{ i.nom }}
+                                            <br>
+                                            <button type="submit" class="btn btn-primary mt-3 text-white">enregistrer</button>
+                                        </div>
                                     </td>
-                                    <td>CM</td>
+                                    <td>CM ({{periode.nombre_groupe_CM}} grp)</td>
                                     {% for semaine in range(1, periode.duree) %}
-                                    <td>0</td>
+                                    <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ i.nombre_heure_CM[semaine - 1] }}"></td>
                                     {% endfor %}
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td>TD</td>
+                                    <td>TD ({{periode.nombre_groupe_TD}} grp)</td>
                                     {% for semaine in range(1, periode.duree) %}
-                                    <td>0</td>
+                                    <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ i.nombre_heure_CM[semaine - 1] }}"></td>
                                     {% endfor %}
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td>TP</td>
+                                    <td>TP ({{periode.nombre_groupe_TP}} grp)</td>
                                     {% for semaine in range(1, periode.duree) %}
-                                    <td>0</td>
+                                    <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ i.nombre_heure_CM[semaine - 1] }}"></td>
                                     {% endfor %}
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td>Partiel</td>
+                                    <td>Partiel ({{periode.nombre_groupe_Partiel}} grp)</td>
                                     {% for semaine in range(1, periode.duree) %}
-                                    <td>0</td>
+                                    <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ i.nombre_heure_CM[semaine - 1] }}"></td>
                                     {% endfor %}
                                     <td></td>
                                 </tr>
@@ -131,28 +135,28 @@
                                                         </td>
                                                         <td>CM ({{periode.nombre_groupe_CM}} grp)</td>
                                                         {% for semaine in range(1, periode.duree) %}
-                                                        <td><input class="form-control" name="nombre_heure_CM[]" value="{{ j.nombre_heure_CM[semaine - 1] }}"></td>
+                                                        <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ j.nombre_heure_CM[semaine - 1] }}"></td>
                                                         {% endfor %}
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>TD ({{periode.nombre_groupe_CM}} grp)</td>
+                                                        <td>TD ({{periode.nombre_groupe_TD}} grp)</td>
                                                         {% for semaine in range(1, periode.duree) %}
-                                                        <td><input class="form-control"></td>
+                                                        <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ j.nombre_heure_CM[semaine - 1] }}"></td>
                                                         {% endfor %}
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>TP ({{periode.nombre_groupe_CM}} grp)</td>
+                                                        <td>TP ({{periode.nombre_groupe_TP}} grp)</td>
                                                         {% for semaine in range(1, periode.duree) %}
-                                                        <td><input class="form-control"></td>
+                                                        <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ j.nombre_heure_CM[semaine - 1] }}"></td>
                                                         {% endfor %}
                                                         <td></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Partiel ({{periode.nombre_groupe_CM}} grp)</td>
+                                                        <td>Partiel ({{periode.nombre_groupe_Partiel}} grp)</td>
                                                         {% for semaine in range(1, periode.duree) %}
-                                                        <td><input class="form-control"></td>
+                                                        <td class="p-0 "><input class="form-control align-middle text-center input-form" name="nombre_heure_CM[]" value="{{ j.nombre_heure_CM[semaine - 1] }}"></td>
                                                         {% endfor %}
                                                         <td></td>
                                                     </tr>

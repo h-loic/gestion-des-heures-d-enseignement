@@ -58,6 +58,9 @@ router.post('/projet/decomposition/record/:idProjet/:idFormation/:duree/:idDecom
             let duree = req.params.duree;
             let decomposition = projet.decomposition.id(req.params.idDecomposition);
             let heure_CM = [];
+            let heure_TD = [];
+            let heure_TP = [];
+            let heure_Partiel = [];
 
             for (let i = 0 ; i < duree; i++){
                 if (isNaN(req.body.nombre_heure_CM[i]) || req.body.nombre_heure_CM[i] === '0' || req.body.nombre_heure_CM[i] === ''){
@@ -65,8 +68,26 @@ router.post('/projet/decomposition/record/:idProjet/:idFormation/:duree/:idDecom
                 }else{
                     heure_CM.push(req.body.nombre_heure_CM[i]);
                 }
+                if (isNaN(req.body.nombre_heure_TD[i]) || req.body.nombre_heure_TD[i] === '0' || req.body.nombre_heure_TD[i] === ''){
+                    heure_TD.push(0);
+                }else{
+                    heure_TD.push(req.body.nombre_heure_TD[i]);
+                }
+                if (isNaN(req.body.nombre_heure_TP[i]) || req.body.nombre_heure_TP[i] === '0' || req.body.nombre_heure_TP[i] === ''){
+                    heure_TP.push(0);
+                }else{
+                    heure_TP.push(req.body.nombre_heure_TP[i]);
+                }
+                if (isNaN(req.body.nombre_heure_Partiel[i]) || req.body.nombre_heure_Partiel[i] === '0' || req.body.nombre_heure_Partiel[i] === ''){
+                    heure_Partiel.push(0);
+                }else{
+                    heure_Partiel.push(req.body.nombre_heure_Partiel[i]);
+                }
             }
             decomposition.nombre_heure_CM = heure_CM;
+            decomposition.nombre_heure_TD = heure_TD;
+            decomposition.nombre_heure_TP = heure_TP;
+            decomposition.nombre_heure_Partiel = heure_Partiel;
             return projet.save();
         }).then(() => {
             res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
