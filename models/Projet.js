@@ -11,6 +11,11 @@ var decomposition = new mongoose.Schema({
     nombre_heure_TD : [Number],
     nombre_heure_TP : [Number],
     nombre_heure_Partiel : [Number],
+    intervenants:
+        [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref : 'Intervenant'
+        }]
 });
 
 var projetSchema = new mongoose.Schema({
