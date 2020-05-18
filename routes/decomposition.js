@@ -4,7 +4,8 @@ var Projet = require('./../models/Projet');
 
 router.get('/projet/decomposition/:idProjet/:idFormation', (req,res) => {
     Formation.findById(req.params.idFormation).then(formation =>{
-        Projet.findById(req.params.idProjet).then(projet => {
+        Projet.findById(req.params.idProjet).populate('intervenants.enseignant').then(projet => {
+            let intervenants = projet.intervenants;
             let decompositions = projet.decomposition;
             let tableau_decomposition = [];
             let compteur = 1;
@@ -23,7 +24,7 @@ router.get('/projet/decomposition/:idProjet/:idFormation', (req,res) => {
                     compteur+=1;
                 }
             }
-            res.render('decomposition/index.html', {formation: formation, projet : projet, tableau_decomposition : tableau_decomposition});
+            res.render('decomposition/index.html', {formation: formation, projet : projet, tableau_decomposition : tableau_decomposition, intervenants : intervenants});
         });
     });
 });

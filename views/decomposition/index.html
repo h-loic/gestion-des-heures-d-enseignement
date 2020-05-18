@@ -22,7 +22,7 @@
                 {% for UE in tableau_decomposition[0] %}
                     {% if UE.element_parent | string === periode._id | string %}
                         <tr>
-                            <td colspan="{{ periode.duree + tableau_decomposition.length}}" class="bg-secondary text-white">
+                            <td colspan="{{ periode.duree + tableau_decomposition.length}}" class="bg-light">
                                 <div class="row float-right mr-2">
                                     <a href="/projet/decomposition/edit/{{ projet._id}}/{{ formation._id }}/{{ UE._id }}" class="float-right"><svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
@@ -60,6 +60,17 @@
                                                 {{ j.nom }}
                                                 <br>
                                                 <button type="submit" class="btn btn-primary mt-3 text-white">enregistrer</button>
+                                                <br>
+                                                <div class="dropdown mt-5 mb-0">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        ajouter intervenant
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        {% for intervenant in intervenants %}
+                                                        <a class="dropdown-item" href="">{{ intervenant.enseignant.nom }} {{ intervenant.enseignant.prenom }}</a>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                         <td>CM ({{periode.nombre_groupe_CM}} grp)</td>
@@ -137,6 +148,17 @@
                                                                 {{ j.nom }}
                                                                 <br>
                                                                 <button type="submit" class="btn btn-primary mt-3 text-white">enregistrer</button>
+                                                                <br>
+                                                                <div class="dropdown mt-5 mb-0">
+                                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                        ajouter intervenant
+                                                                    </button>
+                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                        {% for intervenant in intervenants %}
+                                                                        <a class="dropdown-item" href="">{{ intervenant.enseignant.nom }} {{ intervenant.enseignant.prenom }}</a>
+                                                                        {% endfor %}
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </td>
                                                         <td>CM ({{periode.nombre_groupe_CM}} grp)</td>
