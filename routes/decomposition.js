@@ -52,6 +52,28 @@ router.get('/projet/decomposition/delete/:idProjet/:idFormation/:idDecomposition
     });
 });
 
+router.post('/projet/decomposition/record/:idProjet/:idFormation/:duree/:idDecomposition', (req, res) => {
+    Formation.findById(req.params.idFormation).then( formation => {
+        Projet.findById(req.params.idProjet).then(projet => {
+            let duree = req.params.duree;
+            let decomposition = projet.decomposition.id(req.params.idDecomposition);
+            let heure_CM = [];
+
+            for (let i = 0 ; i < duree; i++){
+                if (isNaN(req.body.nombre_heure_CM[i]) || req.body.nombre_heure_CM[i] === '0' || req.body.nombre_heure_CM[i] === ''){
+                    heure_CM.push(0);
+                }else{
+                    heure_CM.push(req.body.nombre_heure_CM[i]);
+                }
+            }
+            decomposition.nombre_heure_CM = heure_CM;
+            return projet.save();
+        }).then(() => {
+            res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
+        }, err => console.log(err));
+    });
+});
+
 router.post('/projet/decomposition/edit/:idProjet/:idFormation/:idDecomposition', (req, res) => {
     Projet.findById(req.params.idProjet).then(projet => {
         let decomposition = projet.decomposition.id(req.params.idDecomposition);
