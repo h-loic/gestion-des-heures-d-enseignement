@@ -10,7 +10,7 @@ var decomposition = new mongoose.Schema({
     nombre_heure_CM : [Number],
     nombre_heure_TD : [Number],
     nombre_heure_TP : [Number],
-    nombre_heure_Partiel : [Number]
+    nombre_heure_Partiel : [Number],
 });
 
 var projetSchema = new mongoose.Schema({
@@ -22,18 +22,11 @@ var projetSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref : 'Formation'
         }],
-    intervenants: [{
-        nombre_heure_minimal : Number,
-        nombre_heure_maximal : Number,
-        nombre_heure_CM : Number,
-        nombre_heure_TD : Number,
-        nombre_heure_TP : Number,
-        nombre_heure_Partiel : Number,
-        enseignant: {
+    intervenants:
+        [{
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Enseignant'
-        }
-    }],
+            ref : 'Intervenant'
+        }],
     decomposition : [decomposition]
 });
 

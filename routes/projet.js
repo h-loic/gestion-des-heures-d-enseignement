@@ -3,20 +3,22 @@ var Projet = require('./../models/Projet');
 var Formation = require('./../models/Formation');
 var Enseignant = require('./../models/Enseignant');
 var Statut = require('./../models/Statut');
+var Intervenant = require('./../models/Intervenant');
 
 router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
     Projet.findById(req.params.idProjet).then(projet => {
         Enseignant.findById(req.params.idEnseignant).populate('statut').then(enseignant => {
+            let intervenant = new Intervenant();
             let nombre_heure_max = enseignant.statut.heure_normal_max + enseignant.statut.heure_supp_max ;
-            projet.intervenants.push({
-                nombre_heure_minimal : enseignant.statut.heure_normal_min,
-                nombre_heure_maximal : nombre_heure_max,
-                nombre_heure_CM : 0,
-                nombre_heure_TD : 0,
-                nombre_heure_TP : 0,
-                nombre_heure_Partiel : 0,
-                enseignant : enseignant._id
-            });
+            intervenant.nombre_heure_minimal = enseignant.statut.heure_normal_min;
+            intervenant.nombre_heure_maximal = nombre_heure_max;
+            intervenant.nombre_heure_CM = 0;
+            intervenant.nombre_heure_TD = 0;
+            intervenant.nombre_heure_TP = 0;
+            intervenant.nombre_heure_Partiel = 0;
+            intervenant.enseignant = enseignant._id;
+            intervenant.save();
+            projet.intervenants.push(intervenant._id);
             return projet.save();
         });
     }).then(() => {
@@ -53,10 +55,12 @@ router.post('/projet/intervenant/:idProjet/:idIntervenant', (req, res) => {
 
 
 router.get('/projet/intervenant/:idProjet', (req,res) => {
-    Projet.findById(req.params.idProjet).populate('intervenants.enseignant').then(projet =>{
-        projet.populate('intervenants.enseignant.statut').execPopulate().then((projet) => {
-            Enseignant.find({}).then(enseignants =>{
-                res.render('projets/intervenants/index.html', { projet : projet, enseignants : enseignants});
+    Projet.findById(req.params.idProjet).populate('intervenants').then(projet =>{
+        projet.populate('intervenants.enseignant').execPopulate().then((projet) => {
+            projet.populate('intervenants.enseignant.statut').execPopulate().then((projet) => {
+                Enseignant.find({}).then(enseignants =>{
+                    res.render('projets/intervenants/index.html', { projet : projet, enseignants : enseignants});
+                });
             });
         });
     });
