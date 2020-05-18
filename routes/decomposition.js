@@ -61,29 +61,41 @@ router.post('/projet/decomposition/record/:idProjet/:idFormation/:duree/:idDecom
             let heure_TD = [];
             let heure_TP = [];
             let heure_Partiel = [];
+            let somme_heure_CM = 0;
+            let somme_heure_TD = 0;
+            let somme_heure_TP = 0;
+            let somme_heure_Partiel = 0;
 
             for (let i = 0 ; i < duree; i++){
                 if (isNaN(req.body.nombre_heure_CM[i]) || req.body.nombre_heure_CM[i] === '0' || req.body.nombre_heure_CM[i] === ''){
                     heure_CM.push(0);
                 }else{
                     heure_CM.push(req.body.nombre_heure_CM[i]);
+                    somme_heure_CM += parseInt(req.body.nombre_heure_CM[i]);
                 }
                 if (isNaN(req.body.nombre_heure_TD[i]) || req.body.nombre_heure_TD[i] === '0' || req.body.nombre_heure_TD[i] === ''){
                     heure_TD.push(0);
                 }else{
                     heure_TD.push(req.body.nombre_heure_TD[i]);
+                    somme_heure_TD += parseInt(req.body.nombre_heure_TD[i]);
                 }
                 if (isNaN(req.body.nombre_heure_TP[i]) || req.body.nombre_heure_TP[i] === '0' || req.body.nombre_heure_TP[i] === ''){
                     heure_TP.push(0);
                 }else{
                     heure_TP.push(req.body.nombre_heure_TP[i]);
+                    somme_heure_TP += parseInt(req.body.nombre_heure_TP[i]);
                 }
                 if (isNaN(req.body.nombre_heure_Partiel[i]) || req.body.nombre_heure_Partiel[i] === '0' || req.body.nombre_heure_Partiel[i] === ''){
                     heure_Partiel.push(0);
                 }else{
                     heure_Partiel.push(req.body.nombre_heure_Partiel[i]);
+                    somme_heure_Partiel += parseInt(req.body.nombre_heure_Partiel[i]);
                 }
             }
+            heure_CM.push(somme_heure_CM);
+            heure_TD.push(somme_heure_TD);
+            heure_TP.push(somme_heure_TP);
+            heure_Partiel.push(somme_heure_Partiel);
             decomposition.nombre_heure_CM = heure_CM;
             decomposition.nombre_heure_TD = heure_TD;
             decomposition.nombre_heure_TP = heure_TP;
