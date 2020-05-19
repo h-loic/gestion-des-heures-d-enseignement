@@ -2,6 +2,16 @@ var router = require('express').Router();
 var Formation = require('./../models/Formation');
 var Projet = require('./../models/Projet');
 
+router.get('/projet/decomposition/delete-intervenant/:idProjet/:idFormation/:idDecomposition/:idIntervenant', (req,res) => {
+    Projet.findById(req.params.idProjet).populate('intervenants').then(projet => {
+        let decomposition = projet.decomposition.id(req.params.idDecomposition);
+        decomposition.intervenants.pull({_id :req.params.idIntervenant});
+        projet.save();
+    }).then(() => {
+        res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
+    }, err => console.log(err));
+});
+
 router.get('/projet/decomposition/new-intervenant/:idProjet/:idFormation/:idDecomposition/:idIntervenant', (req,res) => {
     Projet.findById(req.params.idProjet).populate('intervenants').then(projet => {
         let decomposition = projet.decomposition.id(req.params.idDecomposition);
