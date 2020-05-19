@@ -132,7 +132,7 @@
                                             {% if j.mode_saisie | string === 'hebdo' %}
                                                 <form method="post" action="/projet/decomposition/record/{{ projet._id}}/{{ formation._id }}/{{ periode.duree }}/{{ j._id }}" enctype="multipart/form-data">
                                                     <tr>
-                                                        <td colspan="{{tableau_decomposition.length - 1}}"  rowspan="4">
+                                                        <td colspan="{{tableau_decomposition.length - 1}}" rowspan="4">
                                                             <div class="row float-right mr-2">
                                                                 <a href="/projet/decomposition/edit/{{ projet._id}}/{{ formation._id }}/{{ j._id }}" class="float-right"><svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                                     <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"/>
@@ -190,6 +190,37 @@
                                                         {% endfor %}
                                                         <td class="p-0"><div class="form-control align-middle text-center input-form">{{ j.nombre_heure_Partiel[periode.duree] }}</div></td>
                                                     </tr>
+                                                    {% for intervenant in j.intervenants %}
+                                                        {% for intervenant_decomposition in intervenants %}
+                                                            {% if intervenant | string === intervenant_decomposition._id | string %}
+                                                                <tr>
+                                                                    <td colspan="{{tableau_decomposition.length }}" rowspan="5">
+                                                                        {{ intervenant_decomposition.enseignant.nom }} {{ intervenant_decomposition.enseignant.prenom }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    {% for semaine in range(1, periode.duree+1) %}
+                                                                    <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_Partiel[]" value="{% if (intervenant_decomposition.nombre_heure_Partiel[semaine - 1] === 0) %}{% else %}{{ intervenant_decomposition.nombre_heure_Partiel[semaine - 1] }}{% endif %}"></td>
+                                                                    {% endfor %}
+                                                                </tr>
+                                                                <tr>
+                                                                    {% for semaine in range(1, periode.duree+1) %}
+                                                                    <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_Partiel[]" value="{% if (intervenant_decomposition.nombre_heure_Partiel[semaine - 1] === 0) %}{% else %}{{ intervenant_decomposition.nombre_heure_Partiel[semaine - 1] }}{% endif %}"></td>
+                                                                    {% endfor %}
+                                                                </tr>
+                                                                <tr>
+                                                                    {% for semaine in range(1, periode.duree+1) %}
+                                                                    <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_Partiel[]" value="{% if (intervenant_decomposition.nombre_heure_Partiel[semaine - 1] === 0) %}{% else %}{{ intervenant_decomposition.nombre_heure_Partiel[semaine - 1] }}{% endif %}"></td>
+                                                                    {% endfor %}
+                                                                </tr>
+                                                                <tr>
+                                                                    {% for semaine in range(1, periode.duree+1) %}
+                                                                    <td class="p-0"><input class="form-control align-middle text-center input-form" name="nombre_heure_Partiel[]" value="{% if (intervenant_decomposition.nombre_heure_Partiel[semaine - 1] === 0) %}{% else %}{{ intervenant_decomposition.nombre_heure_Partiel[semaine - 1] }}{% endif %}"></td>
+                                                                    {% endfor %}
+                                                                </tr>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endfor %}
                                                 </form>
                                             {% else %}
                                                 <tr>
