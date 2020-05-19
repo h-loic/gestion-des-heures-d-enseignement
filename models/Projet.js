@@ -6,10 +6,10 @@ var intervenantDecomposition = new mongoose.Schema({
     nombre_heure_TP : [Number],
     nombre_heure_Partiel : [Number],
     intervenant:
-        [{
+        {
             type: mongoose.Schema.Types.ObjectId,
             ref : 'Intervenant'
-        }],
+        }
 });
 
 var decomposition = new mongoose.Schema({

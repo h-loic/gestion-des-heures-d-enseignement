@@ -192,10 +192,8 @@
                                                     </tr>
                                                 </form>
                                                     {% for intervenant in j.intervenants %}
-                                                        {% for intervenant2 in intervenant.intervenant %}
                                                             {% for intervenant_decomposition in intervenants %}
-                                                                {% if intervenant2 | string === intervenant_decomposition._id | string %}
-                <p>{{ intervenant }}</p>
+                                                                {% if intervenant.intervenant | string === intervenant_decomposition._id | string %}
                                                                     <form method="post" action="/projet/decomposition/intervenant/record/{{ projet._id}}/{{ formation._id }}/{{ periode.duree }}/{{ j._id }}/:{{ intervenant_decomposition._id }}" enctype="multipart/form-data">
                                                                         <tr>
                                                                             <td colspan="{{tableau_decomposition.length }}" rowspan="5">
@@ -234,7 +232,6 @@
                                                                     </form>
                                                                 {% endif %}
                                                             {% endfor %}
-                                                        {% endfor %}
                                                     {% endfor %}
                                                 {% else %}
                                                 <tr>

@@ -46,10 +46,10 @@ router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:du
             heure_TD.push(somme_heure_TD);
             heure_TP.push(somme_heure_TP);
             heure_Partiel.push(somme_heure_Partiel);
-            decomposition.intervenants.nombre_heure_CM = heure_CM;
-            decomposition.intervenants.nombre_heure_TD = heure_TD;
-            decomposition.intervenants.nombre_heure_TP = heure_TP;
-            decomposition.intervenants.nombre_heure_Partiel = heure_Partiel;
+            decomposition.intervenants.intervenant.nombre_heure_CM = heure_CM;
+            decomposition.intervenants.intervenant.nombre_heure_TD = heure_TD;
+            decomposition.intervenants.intervenant.nombre_heure_TP = heure_TP;
+            decomposition.intervenants.intervenant.nombre_heure_Partiel = heure_Partiel;
             return projet.save();
         });
     }).then(() => {
