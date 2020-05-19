@@ -155,7 +155,9 @@
                                                                     </button>
                                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                                         {% for intervenant in intervenants %}
-                                                                        <a class="dropdown-item" href="">{{ intervenant.enseignant.nom }} {{ intervenant.enseignant.prenom }}</a>
+                                                                        <a class="dropdown-item"
+                                                                           href="/projet/decomposition/new-intervenant/{{ projet._id}}/{{ formation._id }}/{{ j._id }}/{{ intervenant._id }}">
+                                                                            {{ intervenant.enseignant.nom }} {{ intervenant.enseignant.prenom }}</a>
                                                                         {% endfor %}
                                                                     </div>
                                                                 </div>
