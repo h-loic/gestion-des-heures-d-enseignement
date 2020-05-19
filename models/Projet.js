@@ -1,5 +1,17 @@
 var mongoose = require('mongoose');
 
+var intervenantDecomposition = new mongoose.Schema({
+    nombre_heure_CM : [Number],
+    nombre_heure_TD : [Number],
+    nombre_heure_TP : [Number],
+    nombre_heure_Partiel : [Number],
+    intervenant:
+        [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref : 'Intervenant'
+        }],
+});
+
 var decomposition = new mongoose.Schema({
     nom : String,
     surnom : String,
@@ -11,11 +23,7 @@ var decomposition = new mongoose.Schema({
     nombre_heure_TD : [Number],
     nombre_heure_TP : [Number],
     nombre_heure_Partiel : [Number],
-    intervenants:
-        [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref : 'Intervenant'
-        }]
+    intervenants : [intervenantDecomposition]
 });
 
 var projetSchema = new mongoose.Schema({
