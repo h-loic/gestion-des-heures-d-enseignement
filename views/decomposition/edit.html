@@ -23,7 +23,7 @@
                 <option value="non_definie">choisisser un mode de saisie</option>
                 <option value="pas_de_saisie" {% if decomposition.mode_saisie === 'pas_de_saisie' %} selected {% endif %}>pas de saisie</option>
                 <option value="hebdo" {% if decomposition.mode_saisie === 'hebdo' %} selected {% endif %}>saisie hebdomadaire</option>
-                <option value="global">saisie global</option>
+                <option value="global" {% if decomposition.mode_saisie === 'global' %} selected {% endif %}>saisie global</option>
             </select>
         </div>
         <input type="submit" class="btn btn-primary" value="enregistrer">

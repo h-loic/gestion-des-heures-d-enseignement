@@ -5,7 +5,8 @@ var intervenantDecomposition = new mongoose.Schema({
     nombre_heure_TD : [Number],
     nombre_heure_TP : [Number],
     nombre_heure_Partiel : [Number],
-    nombre_heure_HeTD : [Number],
+    nombre_groupe : Number,
+    nombre_heure_HeTD : Number,
     intervenant:
         {
             type: mongoose.Schema.Types.ObjectId,

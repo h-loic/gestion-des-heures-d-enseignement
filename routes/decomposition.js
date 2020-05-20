@@ -2,6 +2,29 @@ var router = require('express').Router();
 var Formation = require('./../models/Formation');
 var Projet = require('./../models/Projet');
 
+router.post('/projet/decomposition/intervenant/record-global/:idProjet/:idFormation/:idDecomposition/:idIntervenant', (req, res) => {
+    Projet.findById(req.params.idProjet).then(projet => {
+        let decomposition = projet.decomposition.id(req.params.idDecomposition);
+        let intervenant  = decomposition.intervenants.id(req.params.idIntervenant);
+        intervenant.nombre_groupe = req.body.nombre_groupe_suivis;
+        intervenant.nombre_heure_HeTD = req.body.nombre_groupe_suivis*decomposition.forfait;
+        return projet.save();
+    }).then(() => {
+        res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
+    }, err => console.log(err));
+});
+
+router.post('/projet/decomposition/record-global/:idProjet/:idFormation/:idDecomposition', (req, res) => {
+    Projet.findById(req.params.idProjet).then(projet => {
+        let decomposition = projet.decomposition.id(req.params.idDecomposition);
+        decomposition.nombre_groupe = req.body.nombre_groupe;
+        decomposition.forfait = req.body.forfait;
+        return projet.save();
+    }).then(() => {
+        res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
+    }, err => console.log(err));
+});
+
 router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:duree/:idDecomposition/:idIntervenant', (req, res) => {
     Projet.findById(req.params.idProjet).then(projet => {
         let duree = req.params.duree;

@@ -150,7 +150,7 @@
                                         {% endfor %}
                                     {% endfor %}
                                 {% elif i.mode_saisie | string === 'global' %}
-                                    <form method="post" action="/projet/decomposition/record-global/{{ projet._id}}/{{ formation._id }}/{{ periode.duree }}/{{ i._id }}" enctype="multipart/form-data">
+                                    <form method="post" action="/projet/decomposition/record-global/{{ projet._id}}/{{ formation._id }}/{{ i._id }}" enctype="multipart/form-data">
                                         <tr>
                                             <td colspan="{{ tableau_decomposition.length }}" class="bg-light">
                                                 <div class="row float-right mr-2">
@@ -183,18 +183,49 @@
                                             </td>
                                             <td colspan="{{ periode.duree/2 }}">
                                                 <div class="form-group">
-                                                    <label for="bombre_groupe">nombre de groupe :</label>
-                                                    <input class="form-control" id="bombre_groupe">
+                                                    <label for="nombre_groupe">nombre de groupe :</label>
+                                                    <input class="form-control text-center" id="nombre_groupe" name="nombre_groupe" value="{{ i.nombre_groupe }}">
                                                 </div>
                                             </td>
                                             <td colspan="{{ periode.duree/2 }}">
                                                 <div class="form-group">
                                                     <label for="forfait">forfait :</label>
-                                                    <input class="form-control" id="forfait">
+                                                    <input class="form-control text-center" id="forfait" name="forfait" value="{{ i.forfait }}">
                                                 </div>
                                             </td>
                                         </tr>
                                     </form>
+                                    {% for intervenant in i.intervenants %}
+                                        {% for intervenant_decomposition in intervenants %}
+                                            {% if intervenant.intervenant | string === intervenant_decomposition._id | string %}
+                                                <form method="post" action="/projet/decomposition/intervenant/record-global/{{ projet._id}}/{{ formation._id }}/{{ i._id }}/{{ intervenant._id }}" enctype="multipart/form-data">
+                                                    <tr>
+                                                        <td colspan="{{tableau_decomposition.length }}">
+                                                            {{ intervenant_decomposition.enseignant.nom }} {{ intervenant_decomposition.enseignant.prenom }}
+                                                            <br>
+                                                            <button type="submit" class="btn btn-primary mt-3 text-white">enregistrer</button>
+                                                            <div class="row float-right mr-2">
+                                                                <a href="/projet/decomposition/delete-intervenant/{{ projet._id}}/{{ formation._id }}/{{ i._id }}/{{ intervenant._id }}" class="text-danger float-right" style="margin-left: auto;margin-right: auto"><svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M5.5 5.5A.5.5 0 016 6v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V6a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V6z"/>
+                                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" clip-rule="evenodd"/>
+                                                                </svg>
+                                                                </a>
+                                                            </div>
+                                                        </td>
+                                                        <td colspan="{{ periode.duree }}">
+                                                            <div class="form-group row">
+                                                                <label for="nombre_groupe_suivis" class="col-sm-6 col-form-label">nombre de groupe suivis :</label>
+                                                                <div class="col-sm-6">
+                                                                    <input type="text" class="form-control" id="nombre_groupe_suivis"
+                                                                           name="nombre_groupe_suivis" value="{{ intervenant.nombre_groupe }}">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </form>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
                                 {% else %}
                                     <tr>
                                         <td colspan="{{tableau_decomposition.length}}" class="bg-light">
