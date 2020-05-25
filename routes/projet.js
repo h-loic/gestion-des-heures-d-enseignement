@@ -25,6 +25,9 @@ router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
             intervenant.nombre_heure_TD = 0;
             intervenant.nombre_heure_TP = 0;
             intervenant.nombre_heure_Partiel = 0;
+            intervenant.nombre_heure_HeTD = 0;
+            intervenant.nombre_heure_HeSup = 0;
+            intervenant.nombre_heure_total = 0;
             intervenant.enseignant = enseignant._id;
             intervenant.save();
             projet.intervenants.push(intervenant._id);

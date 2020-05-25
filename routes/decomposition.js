@@ -3,11 +3,23 @@ var Formation = require('./../models/Formation');
 var Projet = require('./../models/Projet');
 
 router.post('/projet/decomposition/intervenant/record-global/:idProjet/:idFormation/:idDecomposition/:idIntervenant', (req, res) => {
-    Projet.findById(req.params.idProjet).then(projet => {
+    Projet.findById(req.params.idProjet).populate('intervenants').then(projet => {
         let decomposition = projet.decomposition.id(req.params.idDecomposition);
-        let intervenant  = decomposition.intervenants.id(req.params.idIntervenant);
-        intervenant.nombre_groupe = req.body.nombre_groupe_suivis;
-        intervenant.nombre_heure_HeTD = req.body.nombre_groupe_suivis*decomposition.forfait;
+        let intervenant_decomposition  = decomposition.intervenants.id(req.params.idIntervenant);
+        let index_intervenant;
+        for (let i = 0; i < projet.intervenants.length ; i++){
+            if (projet.intervenants[i]._id.toString() === intervenant_decomposition.intervenant.toString()){
+                index_intervenant = i;
+            }
+        }
+        if (intervenant_decomposition.nombre_heure_HeTD !== 'undefined') {
+            projet.intervenants[index_intervenant].nombre_heure_HeTD -= intervenant_decomposition.nombre_heure_HeTD;
+        }
+
+        intervenant_decomposition.nombre_groupe = req.body.nombre_groupe_suivis;
+        intervenant_decomposition.nombre_heure_HeTD = req.body.nombre_groupe_suivis*decomposition.forfait;
+        projet.intervenants[index_intervenant].nombre_heure_HeTD += intervenant_decomposition.nombre_heure_HeTD;
+        projet.intervenants[index_intervenant].save();
         return projet.save();
     }).then(() => {
         res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
@@ -55,10 +67,7 @@ router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:du
             projet.intervenants[index_intervenant].nombre_heure_Partiel -= intervenant_decomposition.nombre_heure_Partiel[duree];
             total += intervenant_decomposition.nombre_heure_Partiel[duree];
         }
-        console.log(total);
-        if (isNaN(projet.intervenants[index_intervenant].nombre_heure_total)){
-            projet.intervenants[index_intervenant].nombre_heure_total = 0;
-        }
+
         projet.intervenants[index_intervenant].nombre_heure_total -= total;
 
 
