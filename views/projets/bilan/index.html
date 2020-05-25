@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/">Accueil</a>
+    <a class="breadcrumb-item" href="/projet/{{ projet._id }}">Projet {{ projet.nom}}</a>
+    <span class="breadcrumb-item active">bilan</span>
+</nav>
+<div class="container text-center">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">CM</th>
+            <th scope="col">TD</th>
+            <th scope="col">TP</th>
+            <th scope="col">Partiel</th>
+            <th scope="col">HeTD</th>
+            <th scope="col">HeSup</th>
+            <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for intervenant in intervenants %}
+            <tr>
+                <td>{{ intervenant.enseignant.surnom }}</td>
+                <td>{{ intervenant }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

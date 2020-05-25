@@ -5,6 +5,15 @@ var Enseignant = require('./../models/Enseignant');
 var Statut = require('./../models/Statut');
 var Intervenant = require('./../models/Intervenant');
 
+router.get('/projet/bilan/:idProjet/', (req,res) => {
+    Projet.findById(req.params.idProjet).populate('intervenants').then(projet =>{
+        projet.populate('intervenants.enseignant').execPopulate().then(projet => {
+            let intervenants = projet.intervenants;
+            res.render('projets/bilan/index.html', { projet : projet, intervenants : intervenants });
+        });
+    });
+});
+
 router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
     Projet.findById(req.params.idProjet).then(projet => {
         Enseignant.findById(req.params.idEnseignant).populate('statut').then(enseignant => {

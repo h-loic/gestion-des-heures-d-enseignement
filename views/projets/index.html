@@ -12,6 +12,8 @@
         </div>
         <p class="h1 justify-content-start mt-3 mb-3">{{ projet.nom }}</p>
 
+        <a href="/projet/bilan/{{ projet._id }}" class="col-md-6 btn btn-success mt-1 mb-4">bilan</a>
+
         {% for formation in projet.formations %}
             <div class="row">
                 <a href="decomposition/{{ projet._id }}/{{ formation._id }}" class="btn btn-info col-12 mb-3">{{ formation.nom }}</a>
