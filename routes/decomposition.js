@@ -55,6 +55,10 @@ router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:du
             projet.intervenants[index_intervenant].nombre_heure_Partiel -= intervenant_decomposition.nombre_heure_Partiel[duree];
             total += intervenant_decomposition.nombre_heure_Partiel[duree];
         }
+        console.log(total);
+        if (isNaN(projet.intervenants[index_intervenant].nombre_heure_total)){
+            projet.intervenants[index_intervenant].nombre_heure_total = 0;
+        }
         projet.intervenants[index_intervenant].nombre_heure_total -= total;
 
 

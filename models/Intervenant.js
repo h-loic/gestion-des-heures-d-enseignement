@@ -10,7 +10,7 @@ var intervenantSchema = new mongoose.Schema({
     nombre_heure_Partiel : Number,
     nombre_heure_HeTD : Number,
     nombre_heure_HeSup : Number,
-    nombre_heure_Total : Number,
+    nombre_heure_total : Number,
     enseignant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Enseignant'
