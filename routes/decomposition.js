@@ -33,23 +33,29 @@ router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:du
         let total = 0;
         duree -= 1;
 
+        let index_intervenant;
+        for (let i = 0; i < projet.intervenants.length ; i++){
+            if (projet.intervenants[i]._id.toString() === intervenant_decomposition.intervenant.toString()){
+                index_intervenant = i;
+            }
+        }
         if (intervenant_decomposition.nombre_heure_CM[duree] !== 'undefined'){
-            projet.intervenants[0].nombre_heure_CM -= intervenant_decomposition.nombre_heure_CM[duree];
+            projet.intervenants[index_intervenant].nombre_heure_CM -= intervenant_decomposition.nombre_heure_CM[duree];
             total += intervenant_decomposition.nombre_heure_CM[duree];
         }
         if (intervenant_decomposition.nombre_heure_TD[duree] !== 'undefined'){
-            projet.intervenants[0].nombre_heure_TD -= intervenant_decomposition.nombre_heure_TD[duree];
+            projet.intervenants[index_intervenant].nombre_heure_TD -= intervenant_decomposition.nombre_heure_TD[duree];
             total += intervenant_decomposition.nombre_heure_TD[duree];
         }
         if (intervenant_decomposition.nombre_heure_TP[duree] !== 'undefined'){
-            projet.intervenants[0].nombre_heure_TP -= intervenant_decomposition.nombre_heure_TP[duree];
+            projet.intervenants[index_intervenant].nombre_heure_TP -= intervenant_decomposition.nombre_heure_TP[duree];
             total += intervenant_decomposition.nombre_heure_TP[duree];
         }
         if (intervenant_decomposition.nombre_heure_Partiel[duree] !== 'undefined'){
-            projet.intervenants[0].nombre_heure_Partiel -= intervenant_decomposition.nombre_heure_Partiel[duree];
+            projet.intervenants[index_intervenant].nombre_heure_Partiel -= intervenant_decomposition.nombre_heure_Partiel[duree];
             total += intervenant_decomposition.nombre_heure_Partiel[duree];
         }
-        projet.intervenants[0].nombre_heure_total -= total;
+        projet.intervenants[index_intervenant].nombre_heure_total -= total;
 
 
         let heure_CM = [];
@@ -89,12 +95,12 @@ router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:du
             }
         }
         total = somme_heure_Partiel + somme_heure_CM +somme_heure_TP +somme_heure_TD;
-        projet.intervenants[0].nombre_heure_CM += somme_heure_CM;
-        projet.intervenants[0].nombre_heure_TD += somme_heure_TD;
-        projet.intervenants[0].nombre_heure_TP += somme_heure_TP;
-        projet.intervenants[0].nombre_heure_Partiel += somme_heure_Partiel;
-        projet.intervenants[0].nombre_heure_total += total;
-        projet.intervenants[0].save();
+        projet.intervenants[index_intervenant].nombre_heure_CM += somme_heure_CM;
+        projet.intervenants[index_intervenant].nombre_heure_TD += somme_heure_TD;
+        projet.intervenants[index_intervenant].nombre_heure_TP += somme_heure_TP;
+        projet.intervenants[index_intervenant].nombre_heure_Partiel += somme_heure_Partiel;
+        projet.intervenants[index_intervenant].nombre_heure_total += total;
+        projet.intervenants[index_intervenant].save();
         heure_CM.push(somme_heure_CM);
         heure_TD.push(somme_heure_TD);
         heure_TP.push(somme_heure_TP);
