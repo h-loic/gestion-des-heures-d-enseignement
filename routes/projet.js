@@ -44,6 +44,7 @@ router.get('/projet/intervenant/edit/:idProjet/:idIntervenant', (req,res) => {
 
 router.get('/projet/intervenant/delete/:idProjet/:idIntervenant', (req, res) => {
     Projet.findById(req.params.idProjet).then(projet =>{
+        // TODO : supprimer le document dans la collection intervenant
         projet.intervenants.pull({_id : req.params.idIntervenant});
         projet.save();
         res.redirect('/projet/intervenant/' + req.params.idProjet);
