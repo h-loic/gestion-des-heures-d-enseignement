@@ -4,25 +4,36 @@ var Projet = require('./../models/Projet');
 
 router.post('/projet/decomposition/intervenant/record-global/:idProjet/:idFormation/:idDecomposition/:idIntervenant', (req, res) => {
     Projet.findById(req.params.idProjet).populate('intervenants').then(projet => {
-        let decomposition = projet.decomposition.id(req.params.idDecomposition);
-        let intervenant_decomposition  = decomposition.intervenants.id(req.params.idIntervenant);
-        let index_intervenant;
-        for (let i = 0; i < projet.intervenants.length ; i++){
-            if (projet.intervenants[i]._id.toString() === intervenant_decomposition.intervenant.toString()){
-                index_intervenant = i;
-            }
-        }
-        projet.intervenants[index_intervenant].nombre_heure_total -= projet.intervenants[index_intervenant].nombre_heure_HeTD;
-        if (intervenant_decomposition.nombre_heure_HeTD !== 'undefined') {
-            projet.intervenants[index_intervenant].nombre_heure_HeTD -= intervenant_decomposition.nombre_heure_HeTD;
-        }
+                projet.populate('intervenants.enseignant').execPopulate().then(projet => {
+                    projet.populate('intervenants.enseignant.statut').execPopulate().then(projet => {
+                let decomposition = projet.decomposition.id(req.params.idDecomposition);
+                let intervenant_decomposition  = decomposition.intervenants.id(req.params.idIntervenant);
+                let index_intervenant;
+                for (let i = 0; i < projet.intervenants.length ; i++){
+                    if (projet.intervenants[i]._id.toString() === intervenant_decomposition.intervenant.toString()){
+                        index_intervenant = i;
+                    }
+                }
+                if (isNaN(projet.intervenants[index_intervenant].nombre_heure_HeTD)){
+                    projet.intervenants[index_intervenant].nombre_heure_HeTD = 0;
+                }else{
+                    projet.intervenants[index_intervenant].nombre_heure_total -= projet.intervenants[index_intervenant].nombre_heure_HeTD;
+                }
+                if (intervenant_decomposition.nombre_heure_HeTD !== 'undefined') {
+                    projet.intervenants[index_intervenant].nombre_heure_HeTD -= intervenant_decomposition.nombre_heure_HeTD;
+                }
 
-        intervenant_decomposition.nombre_groupe = req.body.nombre_groupe_suivis;
-        intervenant_decomposition.nombre_heure_HeTD = req.body.nombre_groupe_suivis*decomposition.forfait;
-        projet.intervenants[index_intervenant].nombre_heure_HeTD += intervenant_decomposition.nombre_heure_HeTD;
-        projet.intervenants[index_intervenant].nombre_heure_total += projet.intervenants[index_intervenant].nombre_heure_HeTD;
-        projet.intervenants[index_intervenant].save();
-        return projet.save();
+                intervenant_decomposition.nombre_groupe = req.body.nombre_groupe_suivis;
+                intervenant_decomposition.nombre_heure_HeTD = req.body.nombre_groupe_suivis*decomposition.forfait;
+                projet.intervenants[index_intervenant].nombre_heure_HeTD += intervenant_decomposition.nombre_heure_HeTD;
+                projet.intervenants[index_intervenant].nombre_heure_total += projet.intervenants[index_intervenant].nombre_heure_HeTD;
+                if (projet.intervenants[index_intervenant].nombre_heure_total > projet.intervenants[index_intervenant].enseignant.statut.heure_normal_max) {
+                    projet.intervenants[index_intervenant].nombre_heure_HeSup = projet.intervenants[index_intervenant].nombre_heure_total - projet.intervenants[index_intervenant].enseignant.statut.heure_normal_max;
+                }
+                projet.intervenants[index_intervenant].save();
+                return projet.save();
+            });
+        });
     }).then(() => {
         res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
     }, err => console.log(err));
