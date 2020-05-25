@@ -24,7 +24,13 @@
         {% for intervenant in intervenants %}
             <tr>
                 <td>{{ intervenant.enseignant.surnom }}</td>
-                <td>{{ intervenant }}</td>
+                <td>{{ intervenant.nombre_heure_CM }}</td>
+                <td>{{ intervenant.nombre_heure_TD }}</td>
+                <td>{{ intervenant.nombre_heure_TP }}</td>
+                <td>{{ intervenant.nombre_heure_Partiel }}</td>
+                <td>{{ intervenant.nombre_heure_HeTD }}</td>
+                <td>{{ intervenant.nombre_heure_HeSup }}</td>
+                <td>{{ intervenant.nombre_heure_total }}</td>
             </tr>
         {% endfor %}
         </tbody>

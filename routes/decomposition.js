@@ -26,9 +26,32 @@ router.post('/projet/decomposition/record-global/:idProjet/:idFormation/:idDecom
 });
 
 router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:duree/:idDecomposition/:idIntervenant', (req, res) => {
-    Projet.findById(req.params.idProjet).then(projet => {
+    Projet.findById(req.params.idProjet).populate('intervenants').then(projet => {
+        let decomposition = projet.decomposition.id(req.params.idDecomposition);
+        let intervenant_decomposition  = decomposition.intervenants.id(req.params.idIntervenant);
         let duree = req.params.duree;
+        let total = 0;
         duree -= 1;
+
+        if (intervenant_decomposition.nombre_heure_CM[duree] !== 'undefined'){
+            projet.intervenants[0].nombre_heure_CM -= intervenant_decomposition.nombre_heure_CM[duree];
+            total += intervenant_decomposition.nombre_heure_CM[duree];
+        }
+        if (intervenant_decomposition.nombre_heure_TD[duree] !== 'undefined'){
+            projet.intervenants[0].nombre_heure_TD -= intervenant_decomposition.nombre_heure_TD[duree];
+            total += intervenant_decomposition.nombre_heure_TD[duree];
+        }
+        if (intervenant_decomposition.nombre_heure_TP[duree] !== 'undefined'){
+            projet.intervenants[0].nombre_heure_TP -= intervenant_decomposition.nombre_heure_TP[duree];
+            total += intervenant_decomposition.nombre_heure_TP[duree];
+        }
+        if (intervenant_decomposition.nombre_heure_Partiel[duree] !== 'undefined'){
+            projet.intervenants[0].nombre_heure_Partiel -= intervenant_decomposition.nombre_heure_Partiel[duree];
+            total += intervenant_decomposition.nombre_heure_Partiel[duree];
+        }
+        projet.intervenants[0].nombre_heure_total -= total;
+
+
         let heure_CM = [];
         let heure_TD = [];
         let heure_TP = [];
@@ -37,6 +60,7 @@ router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:du
         let somme_heure_TD = 0;
         let somme_heure_TP = 0;
         let somme_heure_Partiel = 0;
+        total = 0;
 
         for (let i = 0 ; i < duree; i++){
             if (isNaN(req.body.nombre_heure_CM[i]) || req.body.nombre_heure_CM[i] === '0' || req.body.nombre_heure_CM[i] === ''){
@@ -64,17 +88,22 @@ router.post('/projet/decomposition/intervenant/record/:idProjet/:idFormation/:du
                 somme_heure_Partiel += parseInt(req.body.nombre_heure_Partiel[i]);
             }
         }
+        total = somme_heure_Partiel + somme_heure_CM +somme_heure_TP +somme_heure_TD;
+        projet.intervenants[0].nombre_heure_CM += somme_heure_CM;
+        projet.intervenants[0].nombre_heure_TD += somme_heure_TD;
+        projet.intervenants[0].nombre_heure_TP += somme_heure_TP;
+        projet.intervenants[0].nombre_heure_Partiel += somme_heure_Partiel;
+        projet.intervenants[0].nombre_heure_total += total;
+        projet.intervenants[0].save();
         heure_CM.push(somme_heure_CM);
         heure_TD.push(somme_heure_TD);
         heure_TP.push(somme_heure_TP);
         heure_Partiel.push(somme_heure_Partiel);
 
-        let decomposition = projet.decomposition.id(req.params.idDecomposition);
-        let intervenant  = decomposition.intervenants.id(req.params.idIntervenant);
-        intervenant.nombre_heure_CM = heure_CM;
-        intervenant.nombre_heure_TD = heure_TD;
-        intervenant.nombre_heure_TP = heure_TP;
-        intervenant.nombre_heure_Partiel = heure_Partiel;
+        intervenant_decomposition.nombre_heure_CM = heure_CM;
+        intervenant_decomposition.nombre_heure_TD = heure_TD;
+        intervenant_decomposition.nombre_heure_TP = heure_TP;
+        intervenant_decomposition.nombre_heure_Partiel = heure_Partiel;
         return projet.save();
     }).then(() => {
         res.redirect('/projet/decomposition/'+ req.params.idProjet +'/'+ req.params.idFormation);
