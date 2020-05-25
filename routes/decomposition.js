@@ -12,6 +12,7 @@ router.post('/projet/decomposition/intervenant/record-global/:idProjet/:idFormat
                 index_intervenant = i;
             }
         }
+        projet.intervenants[index_intervenant].nombre_heure_total -= projet.intervenants[index_intervenant].nombre_heure_HeTD;
         if (intervenant_decomposition.nombre_heure_HeTD !== 'undefined') {
             projet.intervenants[index_intervenant].nombre_heure_HeTD -= intervenant_decomposition.nombre_heure_HeTD;
         }
@@ -19,6 +20,7 @@ router.post('/projet/decomposition/intervenant/record-global/:idProjet/:idFormat
         intervenant_decomposition.nombre_groupe = req.body.nombre_groupe_suivis;
         intervenant_decomposition.nombre_heure_HeTD = req.body.nombre_groupe_suivis*decomposition.forfait;
         projet.intervenants[index_intervenant].nombre_heure_HeTD += intervenant_decomposition.nombre_heure_HeTD;
+        projet.intervenants[index_intervenant].nombre_heure_total += projet.intervenants[index_intervenant].nombre_heure_HeTD;
         projet.intervenants[index_intervenant].save();
         return projet.save();
     }).then(() => {
