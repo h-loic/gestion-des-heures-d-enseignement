@@ -140,6 +140,8 @@ router.post('/projet/:id?', (req, res) => {
     }).then(projet => {
         projet.nom = req.body.nom;
         projet.formations = req.body.formations;
+        projet.date_debut = req.body.date_debut;
+        projet.date_fin = req.body.date_fin;
         return projet.save();
     }).then(() => {
         res.redirect('/accueil');
