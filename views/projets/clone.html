@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="/">Accueil</a>
+    <span class="breadcrumb-item active">ajouter-modifier projet</span>
+</nav>
+<div class="container">
+    <form method="post" action="{{ endpoint }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" id="nom" name="nom" class="form-control">
+        </div>
+
+        <select class="form-control" name="projet">
+            {% for project in projets %}
+                <option class="dropdown-item" value="{{ project._id }}">{{ project.nom }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" class="btn btn-primary mt-3" value="enregistrer">
+    </form>
+</div>
+
+
+
+{% endblock %}
