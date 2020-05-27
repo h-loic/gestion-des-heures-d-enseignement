@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+    <nav class="navbar navbar-light bg-light">
+      <router-link class="navbar-brand" to="/">
+        <img src="/frontend/public/iut.ico" width="30" height="30" class="d-inline-block align-top" alt="">
+        gestion des heures d'enseignement
+      </router-link>
+    </nav>
     <router-view/>
   </div>
 </template>
