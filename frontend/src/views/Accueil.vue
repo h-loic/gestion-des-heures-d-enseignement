@@ -15,10 +15,9 @@
       <router-link to="/accueil-date" type="button" class="btn btn-success col-2 m-1">trier par date</router-link>
       <router-link to="/accueil-nom" type="button" class="btn btn-success col-2 m-1">trier par nom</router-link>
     </div>
-    {{ projets }}
     <div class="row" v-for="projet in projets" v-bind:key="projet._id">
-      <div v-for="proj in projet" v-bind:key="proj._id" class="btn btn-info col-12 mb-3">
-        {{ proj.nom }}
+      <div class="btn btn-info col-12 mb-3">
+        {{ projet.nom }}
       </div>
     </div>
   </div>
@@ -32,8 +31,8 @@ export default {
   name: 'Accueil',
   data() {
     return {
-      projets : null,
-      error : ''
+      projets : '',
+      error : 'efefefef'
     }
   },
   async created() {

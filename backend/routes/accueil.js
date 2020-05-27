@@ -15,7 +15,7 @@ router.get('/accueil-date', (req, res) => {
 
 router.get('/accueil', (req, res) => {
     Projet.find({}).populate('formation').then(projets => {
-        res.send({ projets : projets});
+        res.send(projets);
     });
 });
 
