@@ -22,7 +22,7 @@
                 <th scope="col">actions</th>
               </tr>
               </thead>
-              <div v-for="formation in formations" v-bind:key="formation._id">
+              <tbody v-for="formation in formations" v-bind:key="formation._id">
                 <tr class="table-secondary">
                   <td scope="row">{{ formation.surnom}}</td>
                   <td>{{ formation.nom }}</td>
@@ -47,8 +47,7 @@
                   <td>nombre groupe CM/TD/TP/Partiel</td>
                   <td>actions</td>
                 </tr>
-                <div v-for="formation_periode in formation.periode" v-bind:key="formation_periode._id">
-                  <tr>
+                  <tr v-for="formation_periode in formation.periode" v-bind:key="formation_periode._id">
                     <td></td>
                     <td>{{ formation_periode.nom_periode }}</td>
                     <td>{{ formation_periode.duree }}</td>
@@ -65,7 +64,6 @@
                       </router-link>
                     </td>
                   </tr>
-                </div>
                 <tr>
                   <td colspan="5"><router-link :to="'formation/add-periode/'+formation._id"><svg class="bi bi-plus-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M8 3.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H4a.5.5 0 010-1h3.5V4a.5.5 0 01.5-.5z" clip-rule="evenodd"/>
@@ -73,7 +71,7 @@
                     <path fill-rule="evenodd" d="M8 15A7 7 0 108 1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
                   </svg> ajouter une période à la formation {{ formation.surnom}}</router-link></td>
                 </tr>
-              </div>
+              </tbody>
             </table>
           </div>
         </div>
