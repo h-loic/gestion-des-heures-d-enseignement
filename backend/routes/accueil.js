@@ -9,13 +9,13 @@ router.get('/accueil-nom', (req, res) => {
 
 router.get('/accueil-date', (req, res) => {
     Projet.find({}).populate('formation').then(projets => {
-        res.render('accueil/index.html', { projets : projets});
+        res.send({projets : projets});
     });
 });
 
 router.get('/accueil', (req, res) => {
     Projet.find({}).populate('formation').then(projets => {
-        res.render('accueil/index.html', { projets : projets});
+        res.send({ projets : projets});
     });
 });
 
