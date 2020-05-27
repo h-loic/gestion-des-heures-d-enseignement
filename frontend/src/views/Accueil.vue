@@ -16,9 +16,9 @@
       <router-link to="/accueil-nom" type="button" class="btn btn-success col-2 m-1">trier par nom</router-link>
     </div>
     <div class="row" v-for="projet in projets" v-bind:key="projet._id">
-      <div class="btn btn-info col-12 mb-3">
+      <router-link :to="'projet/'+ projet._id" class="btn btn-info col-12 mb-3">
         {{ projet.nom }}
-      </div>
+      </router-link>
     </div>
   </div>
 
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       projets : '',
-      error : 'efefefef'
+      error : ''
     }
   },
   async created() {

@@ -12,7 +12,7 @@ Vue.use(VueRouter)
   {
     path: '/formation',
     name: 'Formation',
-    component: () => import('../views/Formation.vue')
+    component: () => import('../views/Formation/Formation.vue')
   }
 ]
 

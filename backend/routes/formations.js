@@ -75,7 +75,7 @@ router.get('/formation/delete/:id', (req, res) => {
 
 router.get('/formation', (req, res) => {
     Formation.find({}).then(formations => {
-        res.render('formations/index.html', { formations : formations});
+        res.send(formations);
     });
 });
 
