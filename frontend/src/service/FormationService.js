@@ -15,6 +15,10 @@ class FormationService {
             })
         });
     }
+
+    static addFormation(nom,surnom){
+        return axios.post('http://127.0.0.1:3000/formation',{nom : nom, surnom : surnom });
+    }
 }
 
 export default FormationService;

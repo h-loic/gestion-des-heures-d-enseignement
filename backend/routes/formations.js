@@ -79,22 +79,32 @@ router.get('/formation', (req, res) => {
     });
 });
 
-router.post('/formation/:id?', (req, res) => {
+router.post('/formation', (req, res) => {
     new Promise((resolve, reject) =>{
-        if (req.params.id){
-            Formation.findById(req.params.id).then(resolve,reject);
-        }
-        else{
-            resolve(new Formation());
-        }
+        resolve(new Formation());
     }).then(formation => {
+        console.log(req.body);
         formation.nom = req.body.nom;
         formation.surnom = req.body.surnom;
 
         return formation.save();
     }).then(() => {
-        res.redirect('/formation');
-    }, err => console.log(err));
+        res.status(201).send();
+    }, err => console.log(err))
+    res.status(500).send();;
+});
+
+router.post('/formation/:id', (req, res) => {
+        new Promise((resolve, reject) =>{
+            Formation.findById(req.params.id).then(resolve,reject);
+        }).then(formation => {
+            formation.nom = req.body.nom;
+            formation.surnom = req.body.surnom;
+
+            return formation.save();
+        }).then(() => {
+            res.status(201).send();
+        }, err => console.log(err));
 });
 
 module.exports = router;

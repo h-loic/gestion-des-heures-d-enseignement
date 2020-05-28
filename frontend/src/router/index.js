@@ -13,6 +13,11 @@ Vue.use(VueRouter)
     path: '/formation',
     name: 'Formation',
     component: () => import('../views/Formation/Formation.vue')
+  },
+  {
+    path: '/formation/new',
+    name: 'Formation-new',
+    component: () => import('../views/Formation/Formation-new.vue')
   }
 ]
 
