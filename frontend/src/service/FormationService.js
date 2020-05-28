@@ -59,8 +59,12 @@ class FormationService {
                 nombre_groupe_TP : nombre_groupe_TP, nombre_groupe_Partiel : nombre_groupe_Partiel });
     }
 
-    static deleteFormation(nom,surnom,id){
-        return axios.get('http://127.0.0.1:3000/formation/delete/'+id);
+    static deleteFormation(idFormation){
+        return axios.get('http://127.0.0.1:3000/formation/delete/'+idFormation);
+    }
+
+    static deletePeriode(idFormation,idPeriode){
+        return axios.get('http://127.0.0.1:3000/formation/delete-periode/'+idFormation+'/'+idPeriode);
     }
 }
 

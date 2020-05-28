@@ -1,14 +1,6 @@
 var router = require('express').Router();
 var Formation = require('./../models/Formation');
 
-router.get('/formation/delete-periode/:id/:idPeriode', (req, res) => {
-    Formation.findById(req.params.id).then(formation => {
-        formation.periode.id(req.params.idPeriode).remove();
-        formation.save();
-        res.redirect('/formation');
-    });
-});
-
 router.get('/formation/getPeriode/:id/:idPeriode', (req,res) => {
     Formation.findById(req.params.id).then(formation => {
         let periode = formation.periode.id(req.params.idPeriode);
@@ -74,6 +66,14 @@ router.get('/formation/new', (req,res) => {
 router.get('/formation/getFormation/:id', (req,res) => {
     Formation.findById(req.params.id).then(formation => {
         res.send( formation);
+    });
+});
+
+router.get('/formation/delete-periode/:id/:idPeriode', (req, res) => {
+    Formation.findById(req.params.id).then(formation => {
+        formation.periode.id(req.params.idPeriode).remove();
+        formation.save();
+        res.status(201).send();
     });
 });
 
