@@ -43,6 +43,11 @@ Vue.use(VueRouter)
     path: '/enseignant/statut',
     name: 'Statut',
     component: () => import('../views/Enseignant/statut.vue')
+  },
+  {
+    path: '/enseignant/statut/new',
+    name: 'Statut-new',
+    component: () => import('../views/Enseignant/statut-new.vue')
   }
 ]
 

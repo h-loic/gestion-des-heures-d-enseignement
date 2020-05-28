@@ -25,6 +25,11 @@ class EnseignantService {
                 })
         });
     }
+
+    static addStatut(nom,surnom,heure_normal_min,heure_normal_max,heure_supp_min,heure_supp_max){
+        return axios.post('http://127.0.0.1:3000/enseignant/statut',{nom : nom, surnom : surnom,heure_normal_min : heure_normal_min,
+            heure_normal_max : heure_normal_max,heure_supp_min : heure_supp_min,heure_supp_max: heure_supp_max });
+    }
 }
 
 export default EnseignantService;
