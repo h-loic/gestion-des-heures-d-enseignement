@@ -34,6 +34,10 @@ class FormationService {
     static editFormation(nom,surnom,id){
         return axios.post('http://127.0.0.1:3000/formation/'+id,{nom : nom, surnom : surnom });
     }
+
+    static deleteFormation(nom,surnom,id){
+        return axios.get('http://127.0.0.1:3000/formation/delete/'+id);
+    }
 }
 
 export default FormationService;

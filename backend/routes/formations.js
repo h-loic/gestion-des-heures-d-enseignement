@@ -69,7 +69,7 @@ router.get('/formation/edit/:id', (req,res) => {
 
 router.get('/formation/delete/:id', (req, res) => {
     Formation.findOneAndRemove({ _id : req.params.id}).then(() => {
-        res.redirect('/formation');
+        res.status(201).send();
     });
 });
 
