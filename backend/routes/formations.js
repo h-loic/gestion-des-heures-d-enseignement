@@ -63,7 +63,7 @@ router.get('/formation/new', (req,res) => {
 
 router.get('/formation/edit/:id', (req,res) => {
     Formation.findById(req.params.id).then(formation => {
-        res.render('formations/edit.html', { formation : formation, endpoint: '/formation/' + formation._id.toString()});
+        res.send( formation);
     });
 });
 

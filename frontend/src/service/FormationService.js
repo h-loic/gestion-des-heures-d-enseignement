@@ -7,7 +7,6 @@ class FormationService {
         return new Promise ((resolve,reject) => {
             axios.get('http://127.0.0.1:3000/formation').then((res) => {
                 const data = res.data;
-                console.log(data);
                 resolve(data);
             })
             .catch((err)=> {
@@ -18,6 +17,22 @@ class FormationService {
 
     static addFormation(nom,surnom){
         return axios.post('http://127.0.0.1:3000/formation',{nom : nom, surnom : surnom });
+    }
+
+    static getFormationbyId(id){
+        return new Promise ((resolve,reject) => {
+            axios.get('http://127.0.0.1:3000/formation/edit/'+id).then((res) => {
+                const data = res.data;
+                resolve(data);
+            })
+            .catch((err)=> {
+                reject(err);
+            })
+        });
+    }
+
+    static editFormation(nom,surnom,id){
+        return axios.post('http://127.0.0.1:3000/formation/'+id,{nom : nom, surnom : surnom });
     }
 }
 

@@ -18,6 +18,11 @@ Vue.use(VueRouter)
     path: '/formation/new',
     name: 'Formation-new',
     component: () => import('../views/Formation/Formation-new.vue')
+  },
+  {
+    path: '/formation/edit/:idFormation',
+    name: 'Formation-edit',
+    component: () => import('../views/Formation/Formation-edit.vue')
   }
 ]
 
