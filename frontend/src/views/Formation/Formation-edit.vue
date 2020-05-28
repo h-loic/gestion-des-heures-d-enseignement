@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
                 <label for="surnom">Surnom</label>
-                <input type="text" id="surnom" name="surnom" v-model="surnom" class="form-control">{{ formation.nom }}
+                <input type="text" id="surnom" name="surnom" v-model="surnom" class="form-control">
             </div>
             <input v-on:click="editFormation" class="btn btn-primary" value="enregistrer">
         </div>

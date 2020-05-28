@@ -100,8 +100,6 @@
     },
     methods: {
       async deleteFormation(id){
-        console.log("okok");
-        console.log(id);
         await FormationService.deleteFormation(this.nom,this.surnom,id).then( async res =>{
           if (res.data.err === 1){
             alert("erreur : " + res.data.data);

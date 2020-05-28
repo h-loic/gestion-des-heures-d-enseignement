@@ -9,12 +9,6 @@ router.get('/formation/delete-periode/:id/:idPeriode', (req, res) => {
     });
 });
 
-router.get('/formation/add-periode/:id', (req,res) => {
-    Formation.findById(req.params.id).then(formation => {
-        res.render('formations/edit-periode.html', { formation : formation, endpoint: '/formation/add-periode/' + formation._id.toString()});
-    });
-});
-
 router.get('/formation/edit-periode/:id/:idPeriode', (req,res) => {
     Formation.findById(req.params.id).then(formation => {
         let periode = formation.periode.id(req.params.idPeriode);
@@ -39,19 +33,27 @@ router.post('/formation/edit-periode/:id/:idPeriode', (req, res) => {
 });
 
 router.post('/formation/add-periode/:id?', (req, res) => {
+    let ans = { err : 0, data : ""};
     Formation.findById(req.params.id).then(formation => {
-        formation.periode.push({
-            nom_periode : req.body.nom,
-            surnom_periode : req.body.surnom,
-            duree : req.body.duree,
-            nombre_groupe_CM : req.body.nombre_groupe_CM,
-            nombre_groupe_TD : req.body.nombre_groupe_TD,
-            nombre_groupe_TP : req.body.nombre_groupe_TP,
-            nombre_groupe_Partiel : req.body.nombre_groupe_Partiel
-        });
-        return formation.save();
+        if (req.body.nom === "" || req.body.surnom === "" || req.body.duree === "" || isNaN(req.body.duree) || req.body.nombre_groupe_CM === "" || isNaN(req.body.nombre_groupe_CM)
+            || req.body.nombre_groupe_TD === "" || isNaN(req.body.nombre_groupe_TD) || req.body.nombre_groupe_TP === "" || isNaN(req.body.nombre_groupe_TP)
+            || req.body.nombre_groupe_Partiel === "" || isNaN(req.body.nombre_groupe_Partiel)){
+            ans.err = 1;
+            ans.data = "string vide ou non string ou non nombre";
+        }else{
+            formation.periode.push({
+                nom_periode : req.body.nom,
+                surnom_periode : req.body.surnom,
+                duree : req.body.duree,
+                nombre_groupe_CM : req.body.nombre_groupe_CM,
+                nombre_groupe_TD : req.body.nombre_groupe_TD,
+                nombre_groupe_TP : req.body.nombre_groupe_TP,
+                nombre_groupe_Partiel : req.body.nombre_groupe_Partiel
+            });
+            return formation.save();
+        }
     }).then(() => {
-        res.redirect('/formation');
+        res.send(ans);
     }, err => console.log(err));
 });
 
@@ -61,7 +63,7 @@ router.get('/formation/new', (req,res) => {
     res.render('formations/edit.html', { formation : formation, endpoint: '/formation'});
 });
 
-router.get('/formation/edit/:id', (req,res) => {
+router.get('/formation/getFormation/:id', (req,res) => {
     Formation.findById(req.params.id).then(formation => {
         res.send( formation);
     });

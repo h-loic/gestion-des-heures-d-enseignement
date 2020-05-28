@@ -19,9 +19,15 @@ class FormationService {
         return axios.post('http://127.0.0.1:3000/formation',{nom : nom, surnom : surnom });
     }
 
+    static addPeriode(nom,surnom,duree,nombre_groupe_CM,nombre_groupe_TD,nombre_groupe_TP,nombre_groupe_Partiel,idFormation){
+        return axios.post('http://127.0.0.1:3000/formation/add-periode/' + idFormation,
+            {nom : nom, surnom : surnom, duree : duree,nombre_groupe_CM :nombre_groupe_CM, nombre_groupe_TD : nombre_groupe_TD,
+                nombre_groupe_TP :nombre_groupe_TP , nombre_groupe_Partiel : nombre_groupe_Partiel});
+    }
+
     static getFormationbyId(id){
         return new Promise ((resolve,reject) => {
-            axios.get('http://127.0.0.1:3000/formation/edit/'+id).then((res) => {
+            axios.get('http://127.0.0.1:3000/formation/getFormation/'+id).then((res) => {
                 const data = res.data;
                 resolve(data);
             })
