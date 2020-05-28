@@ -22,7 +22,7 @@ router.get('/enseignant/statut/delete/:id', (req, res) => {
 
 router.get('/enseignant/statut', (req, res) => {
     Statut.find({}).then(statuts => {
-        res.render('statuts/index.html', { statuts : statuts});
+        res.send(statuts);
     });
 });
 

@@ -33,6 +33,16 @@ Vue.use(VueRouter)
     path: '/formation/edit-periode/:idFormation/:idPeriode',
     name: 'Formation-edit-periode',
     component: () => import('../views/Formation/Periode-edit.vue')
+  },
+  {
+    path: '/enseignant',
+    name: 'Enseignant',
+    component: () => import('../views/Enseignant/enseignant.vue')
+  },
+  {
+    path: '/enseignant/statut',
+    name: 'Statut',
+    component: () => import('../views/Enseignant/statut.vue')
   }
 ]
 
