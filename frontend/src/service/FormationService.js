@@ -37,8 +37,26 @@ class FormationService {
         });
     }
 
+    static getPeriodebyId(idFormation,idPeriode){
+        return new Promise ((resolve,reject) => {
+            axios.get('http://127.0.0.1:3000/formation/getPeriode/'+idFormation +'/'+idPeriode).then((res) => {
+                const data = res.data;
+                resolve(data);
+            })
+            .catch((err)=> {
+                reject(err);
+            })
+        });
+    }
+
     static editFormation(nom,surnom,id){
         return axios.post('http://127.0.0.1:3000/formation/'+id,{nom : nom, surnom : surnom });
+    }
+
+    static editPeriode(nom,surnom,duree,nombre_groupe_CM,nombre_groupe_TD,nombre_groupe_TP,nombre_groupe_Partiel,idFormation,idPeriode){
+        return axios.post('http://127.0.0.1:3000/formation/edit-periode/'+ idFormation + '/' +idPeriode,
+            {nom : nom, surnom : surnom, duree : duree, nombre_groupe_CM : nombre_groupe_CM, nombre_groupe_TD : nombre_groupe_TD,
+                nombre_groupe_TP : nombre_groupe_TP, nombre_groupe_Partiel : nombre_groupe_Partiel });
     }
 
     static deleteFormation(nom,surnom,id){

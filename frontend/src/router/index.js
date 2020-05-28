@@ -28,6 +28,11 @@ Vue.use(VueRouter)
     path: '/formation/add-periode/:idFormation',
     name: 'Formation-add-periode',
     component: () => import('../views/Formation/Periode-new.vue')
+  },
+  {
+    path: '/formation/edit-periode/:idFormation/:idPeriode',
+    name: 'Formation-edit-periode',
+    component: () => import('../views/Formation/Periode-edit.vue')
   }
 ]
 
