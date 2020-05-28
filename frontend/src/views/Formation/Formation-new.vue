@@ -22,6 +22,7 @@
 
 <script>
     import FormationService from "../../service/FormationService";
+    import router from "../../router/index"
 
     export default {
         name: 'Formation-new',
@@ -33,7 +34,13 @@
         },
         methods: {
             async createFormation(){
-                await FormationService.addFormation(this.nom,this.surnom);
+                await FormationService.addFormation(this.nom,this.surnom).then(res =>{
+                    if (res.data.err === 1){
+                        alert("erreur : " + res.data.data);
+                    }else{
+                        router.push("/formation");
+                    }
+                })
             }
         }
     }

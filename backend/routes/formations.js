@@ -79,32 +79,27 @@ router.get('/formation', (req, res) => {
     });
 });
 
-router.post('/formation', (req, res) => {
+router.post('/formation/:id?', (req, res) => {
+    var ans = { err : 0, data : ""};
     new Promise((resolve, reject) =>{
-        resolve(new Formation());
-    }).then(formation => {
-        console.log(req.body);
-        formation.nom = req.body.nom;
-        formation.surnom = req.body.surnom;
-
-        return formation.save();
-    }).then(() => {
-        res.status(201).send();
-    }, err => console.log(err))
-    res.status(500).send();;
-});
-
-router.post('/formation/:id', (req, res) => {
-        new Promise((resolve, reject) =>{
+        if (req.params.id){
             Formation.findById(req.params.id).then(resolve,reject);
-        }).then(formation => {
+        }
+        else{
+            resolve(new Formation());
+        }
+    }).then(formation => {
+        if (req.body.nom === "" || req.body.surnom === "" ){
+            ans.err = 1;
+            ans.data = "string vide ou non string";
+        }else{
             formation.nom = req.body.nom;
             formation.surnom = req.body.surnom;
-
-            return formation.save();
-        }).then(() => {
-            res.status(201).send();
-        }, err => console.log(err));
+            formation.save();
+        }
+    }).then(() => {
+        res.send(ans);
+    }, err => console.log(err));
 });
 
 module.exports = router;
