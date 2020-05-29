@@ -30,10 +30,10 @@ router.post('/enseignant/statut/:id?',(req, res) => {
     let ans = { err : 0, data : ""};
     if (req.body.nom === ""
     || req.body.surnom === ""
-    || isNaN(req.body.heure_normal_min)
-    || isNaN(req.body.heure_normal_max)
-    || isNaN(req.body.heure_supp_min)
-    || isNaN(req.body.heure_supp_max)){
+    || isNaN(req.body.heure_normal_min) || req.body.heure_normal_min === ""
+    || isNaN(req.body.heure_normal_max) || req.body.heure_normal_max === ""
+    || isNaN(req.body.heure_supp_min) || req.body.heure_supp_min === ""
+    || isNaN(req.body.heure_supp_max) || req.body.heure_supp_max === ""){
         ans.err = 1;
         ans.data = "champs vide ou ne respectant pas son type"
     }else{

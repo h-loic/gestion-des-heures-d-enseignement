@@ -36,23 +36,32 @@ router.get('/enseignant', (req, res) => {
 });
 
 router.post('/enseignant/:id?', (req, res) => {
-    new Promise((resolve, reject) =>{
-        if (req.params.id){
-            Enseignant.findById(req.params.id).then(resolve,reject);
-        }
-        else{
-            resolve(new Enseignant());
-        }
-    }).then(enseignant => {
-        enseignant.nom = req.body.nom;
-        enseignant.prenom = req.body.prenom;
-        enseignant.surnom = req.body.surnom;
-        enseignant.email = req.body.email;
-        enseignant.statut = req.body.statut;
-        return enseignant.save();
-    }).then(() => {
-        res.redirect('/enseignant');
-    }, err => console.log(err));
+    let ans = { err : 0, data : ""};
+    if (req.body.nom === ""
+        || req.body.surnom === ""
+        || req.body.prenom === ""
+        || req.body.email === ""
+        || req.body.statut === ""){
+        ans.err = 1;
+        ans.data = "champs vide ou ne respectant pas son type"
+    }else{
+        new Promise((resolve, reject) =>{
+            if (req.params.id){
+                Enseignant.findById(req.params.id).then(resolve,reject);
+            }
+            else{
+                resolve(new Enseignant());
+            }
+        }).then(enseignant => {
+            enseignant.nom = req.body.nom;
+            enseignant.prenom = req.body.prenom;
+            enseignant.surnom = req.body.surnom;
+            enseignant.email = req.body.email;
+            enseignant.statut = req.body.statut;
+            return enseignant.save();
+        })
+    }
+    res.send(ans);
 });
 
 module.exports = router;
