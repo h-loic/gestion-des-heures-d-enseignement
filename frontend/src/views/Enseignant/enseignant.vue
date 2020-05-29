@@ -16,21 +16,21 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">surnom
-                                <router-link to="/enseignant">
-                                    <svg class="bi bi-caret-up-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <a v-on:click="trieParSurnom" >
+                                    <svg class="bi bi-caret-up-fill" style="color: cornflowerblue" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 00.753-1.659l-4.796-5.48a1 1 0 00-1.506 0z"/>
                                     </svg>
-                                </router-link>
+                                </a>
                             </th>
                             <th scope="col">nom</th>
                             <th scope="col">prénom</th>
                             <th scope="col">email</th>
                             <th scope="col">statut
-                                <router-link to="/enseignant-statut">
-                                    <svg class="bi bi-caret-up-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <a v-on:click="trieParStatut">
+                                    <svg class="bi bi-caret-up-fill" style="color: cornflowerblue" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 00.753-1.659l-4.796-5.48a1 1 0 00-1.506 0z"/>
                                     </svg>
-                                </router-link>
+                                </a>
                             </th>
                             <th scope="col">action</th>
                         </tr>
@@ -75,7 +75,7 @@
         },
         async created() {
             try {
-                this.enseignants = await EnseignantService.getEnseignants();
+                this.enseignants = await EnseignantService.getEnseignantsParSurnom();
             } catch (err) {
                 this.error = err.message;
             }
@@ -86,10 +86,24 @@
                     if (res.data.err === 1){
                         alert("erreur : " + res.data.data);
                     } else{
-                        this.enseignants = await EnseignantService.getEnseignants();
+                        this.enseignants = await EnseignantService.getEnseignantsParSurnom();
                     }
                 })
             },
+            async trieParSurnom(){
+                try {
+                    this.enseignants = await EnseignantService.getEnseignantsParSurnom();
+                } catch (err) {
+                    this.error = err.message;
+                }
+            },
+            async trieParStatut(){
+                try {
+                    this.enseignants = await EnseignantService.getEnseignantsParStatut();
+                } catch (err) {
+                    this.error = err.message;
+                }
+            }
         }
     }
 </script>
