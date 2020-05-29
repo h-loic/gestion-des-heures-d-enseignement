@@ -1,1 +1,1 @@
-application web réalisé avec la MEAN-stack (Mongodb,ExpressJs,AngularJs,NodeJs)
+application web réalisé avec la MEVN-stack (Mongodb,ExpressJs,VueJs,NodeJs)
