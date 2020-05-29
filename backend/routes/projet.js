@@ -98,10 +98,9 @@ router.get('/projet/intervenant/:idProjet', (req,res) => {
     });
 });
 
-router.get('/projet/new', (req,res) => {
+router.get('/projet/getFormations', (req,res) => {
     Formation.find({}).then(formations =>{
-        var projet = new Projet();
-        res.render('projets/edit.html', { projet : projet, formations : formations, endpoint: '/projet'});
+        res.send(formations);
     });
 });
 
@@ -130,22 +129,31 @@ router.get('/projet/delete/:id', (req, res) => {
 });
 
 router.post('/projet/:id?', (req, res) => {
-    new Promise((resolve, reject) =>{
-        if (req.params.id){
-            Projet.findById(req.params.id).then(resolve,reject);
-        }
-        else{
-            resolve(new Projet());
-        }
-    }).then(projet => {
-        projet.nom = req.body.nom;
-        projet.formations = req.body.formations;
-        projet.date_debut = req.body.date_debut;
-        projet.date_fin = req.body.date_fin;
-        return projet.save();
-    }).then(() => {
-        res.redirect('/accueil');
-    }, err => console.log(err));
+    let ans = { err : 0, data : ""};
+    if (req.body.nom === ""
+        || req.body.surnom === ""
+        || req.body.prenom === ""
+        || req.body.email === ""
+        || req.body.statut === ""){
+        ans.err = 1;
+        ans.data = "champs vide ou ne respectant pas son type"
+    }else{
+        new Promise((resolve, reject) =>{
+            if (req.params.id){
+                Projet.findById(req.params.id).then(resolve,reject);
+            }
+            else{
+                resolve(new Projet());
+            }
+        }).then(projet => {
+            projet.nom = req.body.nom;
+            projet.formations = req.body.formations;
+            projet.date_debut = req.body.date_debut;
+            projet.date_fin = req.body.date_fin;
+            return projet.save();
+        })
+    }
+    res.send(ans);
 });
 
 router.get('/projet/:id', (req, res) => {
