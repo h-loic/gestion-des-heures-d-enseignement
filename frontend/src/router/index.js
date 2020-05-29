@@ -68,6 +68,11 @@ Vue.use(VueRouter)
     path: '/projet/new',
     name: 'Projet-new',
     component: () => import('../views/Projet/projet-new.vue')
+  },
+  {
+    path: '/projet/:idProjet',
+    name: 'Projet',
+    component: () => import('../views/Projet/projet.vue')
   }
 ]
 

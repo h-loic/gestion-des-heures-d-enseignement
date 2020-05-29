@@ -31,6 +31,18 @@ class ProjetService {
     static addProjet(nom,date_debut,date_fin,formations){
         return axios.post('http://127.0.0.1:3000/projet',{nom : nom, date_debut : date_debut, date_fin : date_fin, formations : formations });
     }
+
+    static getProjetById(id){
+        return new Promise ((resolve,reject) => {
+            axios.get('http://127.0.0.1:3000/projet/getProjet/'+id).then((res) => {
+                const data = res.data;
+                resolve(data);
+            })
+                .catch((err)=> {
+                    reject(err);
+                })
+        });
+    }
 }
 
 export default ProjetService;
