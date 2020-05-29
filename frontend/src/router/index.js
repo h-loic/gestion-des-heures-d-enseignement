@@ -58,6 +58,11 @@ Vue.use(VueRouter)
     path: '/enseignant/new',
     name: 'Enseignant-new',
     component: () => import('../views/Enseignant/enseignant-new.vue')
+  },
+  {
+    path: '/enseignant/edit/:idEnseignant',
+    name: 'Enseignant-edit',
+    component: () => import('../views/Enseignant/enseignant-edit.vue')
   }
 ]
 

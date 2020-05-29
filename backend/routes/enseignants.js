@@ -9,11 +9,9 @@ router.get('/enseignant/new', (req,res) => {
     });
 });
 
-router.get('/enseignant/edit/:id', (req,res) => {
-    Statut.find({}).then(statuts =>{
-        Enseignant.findById(req.params.id).then(enseignant => {
-            res.render('enseignants/edit.html', { enseignant : enseignant, statuts : statuts, endpoint: '/enseignant/' + enseignant._id.toString()});
-        });
+router.get('/enseignant/getEnseignant/:id', (req,res) => {
+    Enseignant.findById(req.params.id).then(enseignant => {
+        res.send(enseignant);
     });
 });
 
