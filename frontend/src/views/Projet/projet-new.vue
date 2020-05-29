@@ -17,20 +17,18 @@
                 <label for="date_fin">date de fin</label>
                 <input type="date" id="date_fin" name="date_fin" class="form-control" v-model="date_fin">
             </div>
-            <label for="label">formations </label>
-            <div class="form-check" id="label">
-                <div v-for="formation in formations" v-bind:key="formation._id">
-                    <br>
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="formations" v-model="formations">
-                        {{ formation.nom }}
-                    </label>
-                </div>
+
+            <div class="form-group form-check" v-for="formation in formations" v-bind:key="formation._id">
+                <label class="form-check-label" :for="formation._id">
+                <input type="checkbox"  v-model="formations_select" :id="formation._id" :value="formation._id">{{  formation.nom}}
+                </label>
             </div>
+
             <input v-on:click="createProjet()" class="btn btn-primary mt-3" value="enregistrer">
         </div>
     </div>
 </template>
+
 
 <script>
     import router from "../../router/index"
@@ -40,6 +38,7 @@
         name: 'Projet-new',
         data() {
             return {
+                formations_select : [],
                 formations : '',
                 nom : '',
                 date_debut : '',
@@ -55,11 +54,11 @@
         },
         methods: {
             async createProjet(){
-                await ProjetService.addProjet(this.nom,this.date_debut,this.date_fin,this.formations).then(res =>{
+                await ProjetService.addProjet(this.nom,this.date_debut,this.date_fin,this.formations_select).then(res =>{
                     if (res.data.err === 1){
                         alert("erreur : " + res.data.data);
                     }else{
-                        router.push("");
+                        router.push("/");
                     }
                 })
             }
