@@ -17,7 +17,7 @@ router.get('/enseignant/getEnseignant/:id', (req,res) => {
 
 router.get('/enseignant/delete/:id', (req, res) => {
     Enseignant.findOneAndRemove({ _id : req.params.id}).then(() => {
-        res.redirect('/enseignant');
+        res.status(201).send();
     });
 });
 

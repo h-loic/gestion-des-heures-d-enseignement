@@ -74,6 +74,10 @@ class EnseignantService {
         return axios.get('http://127.0.0.1:3000/enseignant/statut/delete/'+idStatut);
     }
 
+    static deleteEnseignant(idEnseignant){
+        return axios.get('http://127.0.0.1:3000/enseignant/delete/' + idEnseignant);
+    }
+
 }
 
 export default EnseignantService;
