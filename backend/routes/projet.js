@@ -124,7 +124,7 @@ router.get('/projet/edit/:id', (req,res) => {
 
 router.get('/projet/delete/:id', (req, res) => {
     Projet.findOneAndRemove({ _id : req.params.id}).then(() => {
-        res.redirect('/accueil');
+        res.status(201).send();
     });
 });
 

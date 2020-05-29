@@ -17,13 +17,14 @@
                 <router-link :to="'decomposition/'+ projet._id + '/' + formation._id" class="btn btn-info col-12 mb-3">{{ formation.nom }}</router-link>
             </div>
             <br>
-            <router-link :to="'/projet/delete/'+ this.projet._id" class="btn btn-danger">supprimer ce projet</router-link>
+            <a v-on:click="deleteProjet()" class="btn btn-danger">supprimer ce projet</a>
         </div>
     </div>
 </template>
 
 <script>
     import ProjetService from "../../service/ProjetService";
+    import router from "../../router";
 
     export default {
         name: 'Projet',
@@ -39,6 +40,17 @@
                 this.error = err.message;
             }
         },
+        methods: {
+            async deleteProjet(){
+                await ProjetService.deleteProjet(this.$route.params.idProjet).then( async res =>{
+                    if (res.data.err === 1){
+                        alert("erreur : " + res.data.data);
+                    } else{
+                        router.push("/");
+                    }
+                })
+            },
+        }
     }
 
 </script>

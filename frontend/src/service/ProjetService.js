@@ -43,6 +43,10 @@ class ProjetService {
                 })
         });
     }
+
+    static deleteProjet(idProjet){
+        return axios.get('http://127.0.0.1:3000/projet/delete/'+idProjet);
+    }
 }
 
 export default ProjetService;
