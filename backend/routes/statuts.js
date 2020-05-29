@@ -8,9 +8,9 @@ router.get('/enseignant/statut/new', (req,res) => {
     res.render('statuts/edit.html', { statut : statut, endpoint: '/enseignant/statut'});
 });
 
-router.get('/enseignant/statut/edit/:id', (req,res) => {
+router.get('/enseignant/getStatut/:id', (req,res) => {
     Statut.findById(req.params.id).then(statut => {
-        res.render('statuts/edit.html', { statut : statut, endpoint: '/enseignant/statut/' + statut._id.toString()});
+        res.send(statut);
     });
 });
 

@@ -48,6 +48,11 @@ Vue.use(VueRouter)
     path: '/enseignant/statut/new',
     name: 'Statut-new',
     component: () => import('../views/Enseignant/statut-new.vue')
+  },
+  {
+    path: '/enseignant/statut/edit/:idStatut',
+    name: 'Statut-edit',
+    component: () => import('../views/Enseignant/statut-edit.vue')
   }
 ]
 
