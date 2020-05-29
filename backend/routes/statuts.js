@@ -16,7 +16,7 @@ router.get('/enseignant/getStatut/:id', (req,res) => {
 
 router.get('/enseignant/statut/delete/:id', (req, res) => {
     Statut.findOneAndRemove({ _id : req.params.id}).then(() => {
-        res.redirect('/enseignant/statut');
+        res.status(201).send();
     });
 });
 

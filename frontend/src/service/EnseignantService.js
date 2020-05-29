@@ -47,6 +47,11 @@ class EnseignantService {
         return axios.post('http://127.0.0.1:3000/enseignant/statut/'+idStatut,{nom : nom, surnom : surnom,heure_normal_min : heure_normal_min,
             heure_normal_max : heure_normal_max,heure_supp_min : heure_supp_min,heure_supp_max: heure_supp_max });
     }
+
+    static deleteStatut(idStatut){
+        return axios.get('http://127.0.0.1:3000/enseignant/statut/delete/'+idStatut);
+    }
+
 }
 
 export default EnseignantService;
