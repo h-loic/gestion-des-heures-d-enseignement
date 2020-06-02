@@ -34,6 +34,7 @@ router.get('/projet/bilan/:idProjet/', (req,res) => {
 });
 
 router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
+    let ans = { err : 0, data : ""};
     Projet.findById(req.params.idProjet).then(projet => {
         Enseignant.findById(req.params.idEnseignant).populate('statut').then(enseignant => {
             let intervenant = new Intervenant();
@@ -50,11 +51,10 @@ router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
             intervenant.enseignant = enseignant._id;
             intervenant.save();
             projet.intervenants.push(intervenant._id);
-            return projet.save();
+            projet.save();
+            res.send(ans);
         });
-    }).then(() => {
-        res.redirect('/projet/intervenant/' + req.params.idProjet);
-    }, err => console.log(err));
+    });
 });
 
 router.get('/projet/intervenant/edit/:idProjet/:idIntervenant', (req,res) => {
@@ -66,10 +66,11 @@ router.get('/projet/intervenant/edit/:idProjet/:idIntervenant', (req,res) => {
 
 router.get('/projet/intervenant/delete/:idProjet/:idIntervenant', (req, res) => {
     Projet.findById(req.params.idProjet).then(projet =>{
-        // TODO : supprimer le document dans la collection intervenant
-        projet.intervenants.pull({_id : req.params.idIntervenant});
-        projet.save();
-        res.redirect('/projet/intervenant/' + req.params.idProjet);
+        Intervenant.findOneAndRemove({ _id : req.params.idIntervenant}).then(() => {
+            projet.intervenants.pull({_id : req.params.idIntervenant});
+            projet.save();
+            res.status(201).send();
+        });
     });
 });
 
@@ -91,7 +92,7 @@ router.get('/projet/intervenant/:idProjet', (req,res) => {
         projet.populate('intervenants.enseignant').execPopulate().then((projet) => {
             projet.populate('intervenants.enseignant.statut').execPopulate().then((projet) => {
                 Enseignant.find({}).then(enseignants =>{
-                    res.render('projets/intervenants/index.html', { projet : projet, enseignants : enseignants});
+                    res.send({projet : projet, enseignants : enseignants});
                 });
             });
         });
@@ -120,8 +121,6 @@ router.get('/projet/edit/:id', (req,res) => {
     });
 });
 
-
-
 router.get('/projet/delete/:id', (req, res) => {
     Projet.findOneAndRemove({ _id : req.params.id}).then(() => {
         res.status(201).send();
@@ -145,7 +144,6 @@ router.post('/projet/:id?', (req, res) => {
                 resolve(new Projet());
             }
         }).then(projet => {
-            console.log(req.body.formations);
             projet.nom = req.body.nom;
             projet.formations = req.body.formations;
             projet.date_debut = req.body.date_debut;

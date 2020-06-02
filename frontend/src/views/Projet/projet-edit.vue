@@ -58,7 +58,7 @@
         },
         methods: {
             async editProjet(){
-                await ProjetService.editProjet(this.nom,this.date_debut,this.date_fin,this.formations_select,this.$route.params.idProjet).then(res =>{
+                await ProjetService.editProjet(this.nom,this.date_debut,this.date_fin,this.formations_select,this.$route.params.idProjet).then( res =>{
                     if (res.data.err === 1){
                         alert("erreur : " + res.data.data);
                     }else{
