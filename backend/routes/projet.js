@@ -131,10 +131,9 @@ router.get('/projet/delete/:id', (req, res) => {
 router.post('/projet/:id?', (req, res) => {
     let ans = { err : 0, data : ""};
     if (req.body.nom === ""
-        || req.body.surnom === ""
-        || req.body.prenom === ""
-        || req.body.email === ""
-        || req.body.statut === ""){
+        || req.body.date_debut === ""
+        || req.body.date_fin === ""
+        || req.body.formations.length === 0){
         ans.err = 1;
         ans.data = "champs vide ou ne respectant pas son type"
     }else{

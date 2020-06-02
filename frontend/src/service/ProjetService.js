@@ -32,15 +32,19 @@ class ProjetService {
         return axios.post('http://127.0.0.1:3000/projet',{nom : nom, date_debut : date_debut, date_fin : date_fin, formations : formations });
     }
 
+    static editProjet(nom,date_debut,date_fin,formations,idProjet){
+        return axios.post('http://127.0.0.1:3000/projet/'+idProjet,{nom : nom, date_debut : date_debut, date_fin : date_fin, formations : formations });
+    }
+
     static getProjetById(id){
         return new Promise ((resolve,reject) => {
             axios.get('http://127.0.0.1:3000/projet/getProjet/'+id).then((res) => {
                 const data = res.data;
                 resolve(data);
             })
-                .catch((err)=> {
-                    reject(err);
-                })
+            .catch((err)=> {
+                reject(err);
+            })
         });
     }
 
