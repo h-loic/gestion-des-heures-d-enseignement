@@ -59,7 +59,7 @@ router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
 
 router.get('/projet/intervenant/getIntervenantProjet/:idProjet/:idIntervenant', (req,res) => {
     Intervenant.findById(req.params.idIntervenant).then(intervenant =>{
-        Projet.findById(req.params.idProjet).then(projet =>{
+        Projet.findById(req.params.idProjet).populate('intervenants').then(projet =>{
             res.send({projet : projet , intervenant : intervenant});
         });
     });

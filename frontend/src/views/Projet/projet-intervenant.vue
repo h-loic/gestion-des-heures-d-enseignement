@@ -9,7 +9,7 @@
             <div class="row justify-content-around mt-4 mb-4">
                 <b-dropdown text="Sélectionner un intervenant">
                     <b-dropdown-item
-                                     v-for="enseignant in enseignants" v-bind:key="enseignant._id" v-on:click="addIntervenant(enseignant._id)">
+                                     v-for="enseignant in enseignants_non_intervenants" v-bind:key="enseignant._id" v-on:click="addIntervenant(enseignant._id)">
                         {{ enseignant.nom}} {{ enseignant.prenom }}
                     </b-dropdown-item>
                 </b-dropdown>
@@ -65,7 +65,8 @@
         data() {
             return {
                 projet : '',
-                enseignants : ''
+                enseignants : '',
+                enseignants_non_intervenants : []
             }
         },
         async created() {
@@ -73,6 +74,19 @@
                 let get = await ProjetService.getProjetsEtIntervenant(this.$route.params.idProjet);
                 this.projet = get.projet;
                 this.enseignants = get.enseignants;
+                this.enseignants_non_intervenants = [];
+                let est_contenu = false;
+                for (let i = 0; i < this.enseignants.length; i++){
+                    est_contenu = false;
+                    for (let j = 0; j < this.projet.intervenants.length; j++){
+                        if (this.projet.intervenants[j].enseignant._id === this.enseignants[i]._id){
+                            est_contenu = true;
+                        }
+                    }
+                    if (!est_contenu){
+                        this.enseignants_non_intervenants.push(this.enseignants[i]);
+                    }
+                }
             } catch (err) {
                 this.error = err.message;
             }
@@ -86,6 +100,19 @@
                         let get = await ProjetService.getProjetsEtIntervenant(this.$route.params.idProjet);
                         this.projet = get.projet;
                         this.enseignants = get.enseignants;
+                        this.enseignants_non_intervenants = [];
+                        let est_contenu = false;
+                        for (let i = 0; i < this.enseignants.length; i++){
+                            est_contenu = false;
+                            for (let j = 0; j < this.projet.intervenants.length; j++){
+                                if (this.projet.intervenants[j].enseignant._id === this.enseignants[i]._id){
+                                    est_contenu = true;
+                                }
+                            }
+                            if (!est_contenu){
+                                this.enseignants_non_intervenants.push(this.enseignants[i]);
+                            }
+                        }
                     }
                 });
             },
@@ -97,6 +124,19 @@
                         let get = await ProjetService.getProjetsEtIntervenant(this.$route.params.idProjet);
                         this.projet = get.projet;
                         this.enseignants = get.enseignants;
+                        this.enseignants_non_intervenants = [];
+                        let est_contenu = false;
+                        for (let i = 0; i < this.enseignants.length; i++){
+                            est_contenu = false;
+                            for (let j = 0; j < this.projet.intervenants.length; j++){
+                                if (this.projet.intervenants[j].enseignant._id === this.enseignants[i]._id){
+                                    est_contenu = true;
+                                }
+                            }
+                            if (!est_contenu){
+                                this.enseignants_non_intervenants.push(this.enseignants[i]);
+                            }
+                        }
                     }
                 })
             }
