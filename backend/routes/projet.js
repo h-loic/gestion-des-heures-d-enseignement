@@ -145,6 +145,7 @@ router.post('/projet/:id?', (req, res) => {
                 resolve(new Projet());
             }
         }).then(projet => {
+            console.log(req.body.formations);
             projet.nom = req.body.nom;
             projet.formations = req.body.formations;
             projet.date_debut = req.body.date_debut;

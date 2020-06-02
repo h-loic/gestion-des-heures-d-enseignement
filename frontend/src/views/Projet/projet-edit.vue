@@ -49,7 +49,6 @@
             try {
                 this.formations = await ProjetService.getFormations();
                 this.projet = await ProjetService.getProjetById(this.$route.params.idProjet);
-                this.formations_select = this.projet.formations;
                 this.nom = this.projet.nom;
                 this.date_debut = this.projet.date_debut.split('T')[0];
                 this.date_fin = this.projet.date_fin.split('T')[0];
@@ -63,7 +62,7 @@
                     if (res.data.err === 1){
                         alert("erreur : " + res.data.data);
                     }else{
-                        router.push("/");
+                        router.push("/projet/"+ this.projet._id);
                     }
                 })
             }
