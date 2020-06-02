@@ -57,10 +57,11 @@ router.get('/projet/intervenant/new/:idProjet/:idEnseignant', (req,res) => {
     });
 });
 
-router.get('/projet/intervenant/edit/:idProjet/:idIntervenant', (req,res) => {
-    Projet.findById(req.params.idProjet).populate('intervenants').then(projet =>{
-        res.render('projets/intervenants/edit.html', { projet : projet,
-            endpoint : '/projet/intervenant/' + req.params.idProjet + '/' + req.params.idIntervenant});
+router.get('/projet/intervenant/getIntervenantProjet/:idProjet/:idIntervenant', (req,res) => {
+    Intervenant.findById(req.params.idIntervenant).then(intervenant =>{
+        Projet.findById(req.params.idProjet).then(projet =>{
+            res.send({projet : projet , intervenant : intervenant});
+        });
     });
 });
 
@@ -75,15 +76,20 @@ router.get('/projet/intervenant/delete/:idProjet/:idIntervenant', (req, res) => 
 });
 
 router.post('/projet/intervenant/:idProjet/:idIntervenant', (req, res) => {
+    let ans = { err : 0, data : ""};
     Projet.findById(req.params.idProjet).populate('intervenants').then(projet => {
         Intervenant.findById(req.params.idIntervenant).then(intervenant => {
-            intervenant.nombre_heure_minimal = req.body.nombre_heure_minimal;
-            intervenant.nombre_heure_maximal = req.body.nombre_heure_maximal;
-            intervenant.save();
+            if (isNaN(req.body.nombre_heure_minimal) || isNaN(req.body.nombre_heure_maximal)){
+                ans.err = 1;
+                ans.data = "le nombre d'heure doit être un nombre";
+            }else{
+                intervenant.nombre_heure_minimal = req.body.nombre_heure_minimal;
+                intervenant.nombre_heure_maximal = req.body.nombre_heure_maximal;
+                intervenant.save();
+            }
+            res.send(ans);
         });
-    }).then(() => {
-        res.redirect('/projet/intervenant/'+ req.params.idProjet);
-    }, err => console.log(err));
+    });
 });
 
 
@@ -159,25 +165,6 @@ router.get('/projet/getProjet/:id', (req, res) => {
         res.send(projet);
     });
 });
-
-var objectIdDel = function(copiedObjectWithId) {
-    if (copiedObjectWithId != null && typeof(copiedObjectWithId) != 'string' &&
-        typeof(copiedObjectWithId) != 'number' && typeof(copiedObjectWithId) != 'boolean' ) {
-        //for array length is defined however for objects length is undefined
-        if (typeof(copiedObjectWithId.length) == 'undefined') {
-            delete copiedObjectWithId._id;
-            for (var key in copiedObjectWithId) {
-                objectIdDel(copiedObjectWithId[key]); //recursive del calls on object elements
-            }
-        }
-        else {
-            for (var i = 0; i < copiedObjectWithId.length; i++) {
-                objectIdDel(copiedObjectWithId[i]);  //recursive del calls on array elements
-            }
-        }
-    }
-    return "ok";
-}
 
 module.exports = router;
 

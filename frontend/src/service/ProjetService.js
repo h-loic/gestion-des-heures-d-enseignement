@@ -52,6 +52,11 @@ class ProjetService {
         return axios.post('http://127.0.0.1:3000/projet/'+idProjet,{nom : nom, date_debut : date_debut, date_fin : date_fin, formations : formations });
     }
 
+    static editIntervenant(idProjet,idIntervenant,nombre_heure_minimal,nombre_heure_maximal){
+        return axios.post('http://127.0.0.1:3000/projet/intervenant/'+ idProjet +'/'+idIntervenant,
+            { nombre_heure_minimal : nombre_heure_minimal, nombre_heure_maximal :nombre_heure_maximal });
+    }
+
     static getProjetById(id){
         return new Promise ((resolve,reject) => {
             axios.get('http://127.0.0.1:3000/projet/getProjet/'+id).then((res) => {
@@ -61,6 +66,18 @@ class ProjetService {
             .catch((err)=> {
                 reject(err);
             })
+        });
+    }
+
+    static getIntervenantProjet(idProjet,idIntervenant){
+        return new Promise ((resolve,reject) => {
+            axios.get('http://127.0.0.1:3000/projet/intervenant/getIntervenantProjet/'+ idProjet +'/'+idIntervenant).then((res) => {
+                const data = res.data;
+                resolve(data);
+            })
+                .catch((err)=> {
+                    reject(err);
+                })
         });
     }
 
