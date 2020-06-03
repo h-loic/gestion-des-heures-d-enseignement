@@ -88,7 +88,12 @@ Vue.use(VueRouter)
     path: '/projet/intervenant/edit/:idProjet/:idIntervenant',
     name: 'Projet-intervenant-edit',
     component: () => import('../views/Projet/projet-intervenant-edit.vue')
-  }
+  },
+    {
+      path: '/projet/decomposition/:idProjet/:idFormation',
+      name: 'Projet-decomposition',
+      component: () => import('../views/Decomposition/decomposition.vue')
+    }
 ]
 
 const router = new VueRouter({

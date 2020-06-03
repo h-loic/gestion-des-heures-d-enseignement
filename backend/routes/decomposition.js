@@ -194,7 +194,7 @@ router.get('/projet/decomposition/:idProjet/:idFormation', (req,res) => {
                         compteur+=1;
                     }
                 }
-                res.render('decomposition/index.html', {formation: formation, projet : projet, tableau_decomposition : tableau_decomposition, intervenants : intervenants});
+                res.send( {formation: formation, projet : projet, tableau_decomposition : tableau_decomposition, intervenants : intervenants});
             });
         });
     });
