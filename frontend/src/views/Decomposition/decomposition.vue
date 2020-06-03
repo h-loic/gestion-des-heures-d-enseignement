@@ -7,12 +7,11 @@
         </nav>
         <div class="container text-center">
             <p class="h1 justify-content-start mt-3 mb-3">{{ projet.nom }}</p>
-
-            <div class="h4 mt-5" v-for="periode in formation.periodes" v-bind:key="periode._id">{{ periode.nom_periode }}</div>
+            <div class="h4 mt-5" v-for="periode in this.formation.periode" v-bind:key="periode._id">{{ periode.nom_periode }}
                 <table class="table table-editable table-bordered mb-3">
                     <tr>
                         <td :colspan="tableau_decomposition.length"></td>
-                        <td v-for="semaine in periode.duree" v-bind:key="semaine._id">{{ semaine+1 }}</td> <!-- VERIFIER SI FONCTIONNE -->
+                        <td v-for="semaine in periode.duree" v-bind:key="semaine._id">{{ semaine }}</td>
                         <td>Total </td>
                     </tr>
                     <div v-for="UE in tableau_decomposition[0]" v-bind:key="UE._id">
@@ -426,6 +425,7 @@
             <input type="submit" class="btn btn-primary text-center" value="enregistrer">
         </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -448,7 +448,7 @@
                 this.projet = get.projet;
                 this.tableau_decomposition = get.tableau_decomposition;
                 this.intervenants = get.intervenants;
-                console.log(this.formation.periode[0]);
+                console.log(this.formation.periode[0].nom_periode);
             } catch (err) {
                 this.error = err.message;
             }
