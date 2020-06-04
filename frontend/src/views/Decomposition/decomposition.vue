@@ -1,3 +1,4 @@
+
 <template>
     <div>
         <nav class="breadcrumb">
@@ -14,8 +15,8 @@
                         <td v-for="semaine in periode.duree" v-bind:key="semaine._id">{{ semaine }}</td>
                         <td>Total </td>
                     </tr>
-                    <div v-for="UE in tableau_decomposition[0]" v-bind:key="UE._id">
-                        <tr v-if="UE.element_parent  === periode._id">
+                    <tbody v-for="UE in get_array_of_child(tableau_decomposition[0],periode._id)" v-bind:key="UE._id">
+                        <tr>
                             <td :colspan="periode.duree + tableau_decomposition.length" class="bg-light">
                                 <div class="row float-right mr-2">
                                     <router-link :to="'/projet/decomposition/edit/'+projet._id+'/'+ formation._id +'/'+ UE._id" class="float-right"><svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -95,10 +96,10 @@
                         </form>
                             <div v-for="intervenant in i.intervenants" v-bind:key="intervenant._id">
                                 <div v-for="intervenant_decomposition in intervenants" v-bind:key="intervenant_decomposition._id">
-                                    <form v-if="intervenant.intervenant === intervenant_decomposition._id" method="post" :action="'/projet/decomposition/intervenant/record/'+ projet._id+'/'+ formation._id +'/'+ periode.duree +'/'+ i._id +'/'+ intervenant._id" enctype="multipart/form-data">
+                                    <form v-for="intervenant in get_intervenant(i.intervenants,intervenants)" v-if="intervenant.intervenant === intervenant_decomposition._id" method="post" :action="'/projet/decomposition/intervenant/record/'+ projet._id+'/'+ formation._id +'/'+ periode.duree +'/'+ i._id +'/'+ intervenant._id" enctype="multipart/form-data">
                                         <tr>
                                             <td :colspan="tableau_decomposition.length" rowspan="5">
-                                                {{ intervenant_decomposition.enseignant.nom }} {{ intervenant_decomposition.enseignant.prenom }}
+                                                {{ intervenant.enseignant.nom }} {{ intervenant.enseignant.prenom }}
                                                 <br>
                                                 <button type="submit" class="btn btn-primary mt-3 text-white">enregistrer</button>
                                                 <div class="row float-right mr-2">
@@ -415,7 +416,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </tbody>
                     <tr>
                         <td  :colspan="periode.duree + tableau_decomposition.length + 1">
                             <a :href="'/projet/decomposition/new/'+ projet._id+'/'+ formation._id+'/'+ periode._id+'/1'" class="text-center">ajouter un fils</a>
@@ -448,11 +449,22 @@
                 this.projet = get.projet;
                 this.tableau_decomposition = get.tableau_decomposition;
                 this.intervenants = get.intervenants;
-                console.log(this.formation.periode[0].nom_periode);
             } catch (err) {
                 this.error = err.message;
             }
+        },
+        methods:{
+            get_array_of_child: function(array, id_parent){
+                let array_of_child = [];
+                for (let i = 0 ; i < array.length; i++){
+                    if (array[i].element_parent === id_parent){
+                        array_of_child.push(array[i]);
+                    }
+                }
+                return array_of_child;
+            }
         }
+
     }
 
 </script>

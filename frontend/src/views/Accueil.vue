@@ -21,7 +21,6 @@
       </router-link>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -38,6 +37,7 @@ export default {
   async created() {
     try {
       this.projets = await ProjetService.getProjets();
+      console.log(this.projets);
     } catch (err) {
       this.error = err.message;
     }
